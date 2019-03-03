@@ -1,13 +1,13 @@
 {
-  "main.css": "/fe-risusme/static/css/main.3aacff82.chunk.css",
-  "main.js": "/fe-risusme/static/js/main.0d553266.chunk.js",
-  "main.js.map": "/fe-risusme/static/js/main.0d553266.chunk.js.map",
+  "main.css": "/fe-risusme/static/css/main.746aaa21.chunk.css",
+  "main.js": "/fe-risusme/static/js/main.842243cf.chunk.js",
+  "main.js.map": "/fe-risusme/static/js/main.842243cf.chunk.js.map",
   "runtime~main.js": "/fe-risusme/static/js/runtime~main.1a1d3d03.js",
   "runtime~main.js.map": "/fe-risusme/static/js/runtime~main.1a1d3d03.js.map",
   "static/js/2.e11f6d2e.chunk.js": "/fe-risusme/static/js/2.e11f6d2e.chunk.js",
   "static/js/2.e11f6d2e.chunk.js.map": "/fe-risusme/static/js/2.e11f6d2e.chunk.js.map",
   "index.html": "/fe-risusme/index.html",
-  "precache-manifest.8aa62925614a7065cdace9be81dcddc6.js": "/fe-risusme/precache-manifest.8aa62925614a7065cdace9be81dcddc6.js",
+  "precache-manifest.14cf1d9fa5f85cbee55f7533f0006bc8.js": "/fe-risusme/precache-manifest.14cf1d9fa5f85cbee55f7533f0006bc8.js",
   "service-worker.js": "/fe-risusme/service-worker.js",
-  "static/css/main.3aacff82.chunk.css.map": "/fe-risusme/static/css/main.3aacff82.chunk.css.map"
+  "static/css/main.746aaa21.chunk.css.map": "/fe-risusme/static/css/main.746aaa21.chunk.css.map"
 }
