@@ -1,16 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {getCategoryDetailFavorited} from './../actions/actions';
 import CategoryDetailComponent from './../components/CategoryDetailComponent';
 import * as config from './../configs/configs';
-import {getCategoryDetailNew} from './../actions/actions';
 
-class NewContainer extends React.Component {
+class FavoritedContainer extends React.Component {
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        this.props.getCategoryDetailNew(config.CATEGORYID_NEW, 1);
+        this.props.getCategoryDetailFavorited(config.CATEGORYID_FAVORITED, 1);
     }
 
     render() {
@@ -18,7 +18,7 @@ class NewContainer extends React.Component {
         return (
             <div className="main-content-container container-fluid px-4">
                 <div className="col-12 col-sm-4 text-center text-sm-left mb-0">
-                    NewContainer
+                    ggnlnsklnHotContainer jffafffffffggggggggggggggnlnsklnHotContainer jffafffffffggggggggggggggnlnskln
                 </div>
                 <div className="row">
                         {
@@ -50,10 +50,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCategoryDetailNew: (category, page) => {
-            dispatch(getCategoryDetailNew(category, page));
+        getCategoryDetailFavorited: (category, page) => {
+            dispatch(getCategoryDetailFavorited(category, page));
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (NewContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritedContainer);

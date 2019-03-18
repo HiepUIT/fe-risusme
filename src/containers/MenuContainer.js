@@ -1,6 +1,11 @@
 import React from 'react';
 import * as configs from './../configs/configs';
 import { Link } from "react-router-dom";
+import ListCategoryContainer from './../containers/ListCategoryContainer';
+import logo from './../images/logo.jpg';
+import hot from './../images/hot.jpg';
+import news from './../images/new.jpg';
+import fresh from './../images/fresh.jpg';
 
 class MenuContainer extends React.Component {
     render() {
@@ -10,11 +15,11 @@ class MenuContainer extends React.Component {
                 <nav className="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
                     <a className="navbar-brand w-100 mr-0" href={configs.HOME_PAGE} style={{lineHeight: '35px'}}>
                     <div className="d-table m-auto">
-                        <img id="main-logo" className="d-inline-block align-top mr-1" style={{maxWidth: '35px'}} src="./images/logo.jpg" alt="Shards Dashboard" />
+                        <img id="main-logo" className="d-inline-block align-top mr-1" style={{maxWidth: '35px'}} src={logo} alt="Shards Dashboard" />
                         <span className="d-none d-md-inline ml-1" style={{fontSize: '2rem'}}>Risusme</span>
                     </div>
                     </a>
-                    <a  className="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+                    <a className="toggle-sidebar d-sm-inline d-md-none d-lg-none">
                         <i className="material-icons">&#xE5C4;</i>
                     </a>
                 </nav>
@@ -34,50 +39,25 @@ class MenuContainer extends React.Component {
                     <ul className="nav flex-column">
                         <li className="nav-item">
                             <Link className="nav-link" to="/hot">
-                                <img className="img-icon" src="./images/hot.jpg"/>
+                                <img className="img-icon" src={hot}/>
                                 <span className="menu-text">Hot</span>
                             </Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/new">
-                                <img className="img-icon" src="./images/new.jpg"/>
+                                <img className="img-icon" src={news}/>
                                 <span className="menu-text">New</span>
                             </Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/fresh">
-                                <img className="img-icon" src="./images/fresh.jpg"/>
+                                <img className="img-icon" src={fresh}/>
                                 <span className="menu-text">Fresh</span>
                             </Link>
                         </li>
                     </ul>
                     <p className="category-style">SECTIONS</p>
-                    <ul className="nav flex-column">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/funny">
-                                <img className="img-icon" src="./images/funny.jpg"/>
-                                <span className="menu-text">Funny</span>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/animal">
-                                <img className="img-icon" src="./images/animals.jpg"/>
-                                <span className="menu-text">Animal</span>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/sport">
-                                <img className="img-icon" src="./images/sport.jpg"/>
-                                <span className="menu-text">Sport</span>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/tips">
-                                <img className="img-icon" src="./images/tips.jpg"/>
-                                <span className="menu-text">Tips</span>
-                            </Link>
-                        </li>
-                    </ul>
+                    <ListCategoryContainer/>
                 </div>
             </aside>
         );

@@ -1,23 +1,31 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getCategoryDetailHot} from './../actions/actions';
-import * as config from './../configs/configs';
-import CategoryDetailComponent from './../components/CategoryDetailComponent';
-class HotContainer extends React.Component {
+import {getCategoryDetail} from '../actions/actions';
+import CategoryDetailComponent from '../components/CategoryDetailComponent';
+
+class CategoryDetailContainer extends React.Component {
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        this.props.getCategoryDetailHot(config.CATEGORYID_HOT, 1);
+        let categoryId = this.props.match.params.id;
+        this.props.getCategoryDetail(categoryId, 1);
     }
 
-    render() {
+    componentDidUpdate(preProps) {
+        if(preProps.match.params.id == this.props.match.params.id)
+            return;
+        let categoryId = this.props.match.params.id;
+        this.props.getCategoryDetail(categoryId, 1);
+    }
+
+    render () {
         var { categoryDetails } = this.props;
         return (
             <div className="main-content-container container-fluid px-4">
                 <div className="col-12 col-sm-4 text-center text-sm-left mb-0">
-                    Hot container
+                    Animal container
                 </div>
                 <div className="row">
                     {
@@ -49,10 +57,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCategoryDetailHot: (categoryId, page) => {
-            dispatch(getCategoryDetailHot(categoryId, page))
+        getCategoryDetail: (categoryId, page) => {
+            dispatch(getCategoryDetail(categoryId, page));
         }
     }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps) (HotContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryDetailContainer);

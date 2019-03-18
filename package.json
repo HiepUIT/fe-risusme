@@ -1,21 +1,33 @@
 {
   "name": "fe-resusme",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://mrhieptran.github.io/fe-risusme/",
   "dependencies": {
     "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
+    "gh-pages": "^2.0.1",
     "react": "^16.8.2",
+    "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.2",
+    "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.0.2",
+    "react-modal": "^3.8.1",
+    "react-player": "^1.9.3",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
+    "react-tooltip": "^3.10.0",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "video-react": "^0.13.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
