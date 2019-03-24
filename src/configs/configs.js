@@ -15,7 +15,9 @@ export const API_CATEGORY_DETAIL_NEW = "http://tho-test2.azurewebsites.net/api/m
 export const API_LIST_CATEGORY = "http://tho-test2.azurewebsites.net/api/category/list";
 export const API_MEDIA_DETAIL = "http://tho-test2.azurewebsites.net/api/media/detail/{ID}";
 export const API_SEARCH_MEDIA = "http://tho-test2.azurewebsites.net/api/media/search?title={TITLE}&page={PAGE}";
-
+export const API_LIKE_MEDIA = "http://tho-test2.azurewebsites.net/api/media/like";
+export const API_DISLIKE_MEDIA = "http://tho-test2.azurewebsites.net/api/media/dislike";
+export const API_FAVORITE_MEDIA = "http://tho-test2.azurewebsites.net/api/media/favorite";
 export const API_LOGIN = "http://tho-test2.azurewebsites.net/api/account/signin";
 
 export const FB_ID = "673065919800419";

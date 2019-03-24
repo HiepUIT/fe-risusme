@@ -2,7 +2,7 @@ import * as type from './../constants/constants';
 
 var auth = {
     isAuth: false,
-    tokend: '',
+    token: '',
     userInfo: {
         id: '',
         name: '',
@@ -16,9 +16,7 @@ var auth = {
 var myReducer = (state = auth, action) => {
     switch(action.type) {
         case type.LOGIN_FB: {
-            state.isAuth = true;
-            state.user = action.user;
-            return state;
+            return Object.assign({}, state, action.user);
         }
         default: {
             return state;

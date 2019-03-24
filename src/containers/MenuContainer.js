@@ -38,20 +38,20 @@ class MenuContainer extends React.Component {
                     <p className="category-style">POPULAR</p>
                     <ul className="nav flex-column">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/hot">
-                                <img className="img-icon" src={hot}/>
+                            <Link className="nav-link" to="/">
+                                <img alt="" className="img-icon" src={hot}/>
                                 <span className="menu-text">Hot</span>
                             </Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/new">
-                                <img className="img-icon" src={news}/>
+                                <img alt="" className="img-icon" src={news}/>
                                 <span className="menu-text">New</span>
                             </Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/fresh">
-                                <img className="img-icon" src={fresh}/>
+                                <img alt="" className="img-icon" src={fresh}/>
                                 <span className="menu-text">Fresh</span>
                             </Link>
                         </li>

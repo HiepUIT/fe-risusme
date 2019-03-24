@@ -179,3 +179,38 @@ p {
 button:focus {
   outline: none;
 }
+
+.r-text-duration {
+  display: inline-flex;
+  flex-direction: row;
+  position: absolute;
+  color: #fff;
+  background-color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 2px;
+  bottom: 98px;
+  right: 15px;
+}
+
+.main-content .header-navbar, .main-content>.main-navbar {
+  box-shadow: none !important;
+}
+
+.main-sidebar{
+  box-shadow: none !important;
+}
+
+.sweet-loading{
+  margin: auto;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}

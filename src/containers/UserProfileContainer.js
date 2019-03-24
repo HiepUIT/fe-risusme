@@ -2,9 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 class UserProfileContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         console.log('UserProfileContainer');

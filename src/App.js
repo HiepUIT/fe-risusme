@@ -13,9 +13,6 @@ import { connect } from 'react-redux';
 import SearchMediaContainer from './containers/SearchMediaContainer';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     var { listCategory } = this.props;
@@ -28,7 +25,7 @@ class App extends Component {
             <HeaderContainer ref={this.child}/>
             <Switch>
               <Route path="/settings" component={UserProfileContainer}/>
-              <Route path="/hot" component={HotContainer}/>
+              <Route exact path="/" component={HotContainer}/>
               <Route path="/new" component={NewContainer}/>
               <Route path="/fresh" component={FavoritedContainer}/>
               {

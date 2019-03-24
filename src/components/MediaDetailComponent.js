@@ -1,7 +1,7 @@
 import React from 'react';
 import LikeDislikeComponent from './../components/LikeDislikeComponent';
 import ShareComponent from './../components/ShareComponent';
-import FollowComponent from './../components/FollowComponent';
+import FavoriteComponent from './FavoriteComponent';
 import ListCommentComponent from './ListCommentComponent';
 import "./../../node_modules/video-react/dist/video-react.css";
 import {
@@ -17,14 +17,9 @@ import {
 } from 'video-react';
 
 class MediaDetailComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        
-    }
 
     componentDidUpdate(prevProps) {
-        if (this.props.url != prevProps.url) {
-            console.log('componentDidUpdate', true);
+        if (this.props.url !== prevProps.url) {
           this.refs.player.load();
         }
     }
@@ -61,10 +56,10 @@ class MediaDetailComponent extends React.Component {
                         views
                     </div>
                     <div className="col-lg-6 inline-flex">
-                        <LikeDislikeComponent interactions={data.interactions}/>
+                        <LikeDislikeComponent mediaId={data.mediaId} userInteraction={data.userInteraction} interactions={data.interactions}/>
                         <ShareComponent/>
                         <span className="r-detail-padding-10">&nbsp;</span>
-                        <FollowComponent/>
+                        <FavoriteComponent mediaId={data.mediaId}/>
                     </div>
                 </div>
                 <input type="text" className="form-control form-control-lg mb-3" placeholder="Write a comment"/>

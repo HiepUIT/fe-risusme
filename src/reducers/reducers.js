@@ -4,13 +4,15 @@ import listCategoryReducer from './listcategoryReducer';
 import mediaDetailReducer from './mediadetailreducer';
 import searchReducer from './searchreducer';
 import authReducer from './authreducer';
+import suggestSearchReducer from './suggestsearchreducer';
 
 const myReducer = combineReducers({
     categoryDetailReducer,
     listCategoryReducer,
     mediaDetailReducer,
     searchReducer,
-    authReducer
+    authReducer,
+    suggestSearchReducer
 })
 
 export default myReducer;

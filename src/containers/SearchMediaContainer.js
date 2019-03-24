@@ -2,9 +2,6 @@ import React from 'react';
 import CategoryDetailComponent from './../components/CategoryDetailComponent';
 
 class SearchMediaContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
@@ -23,6 +20,7 @@ class SearchMediaContainer extends React.Component {
                                         url={elm.url}
                                         title={elm.title}
                                         author={elm.author}
+                                        userInteraction={elm.userInteraction}
                                         interactions={elm.interactions}
                                     />
                             );

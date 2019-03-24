@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import FollowComponent from './FollowComponent';
+import FavoriteComponent from './FavoriteComponent';
 import LikeDislikeComponent from './LikeDislikeComponent';
 import CommmentComponent from './CommentComponent';
 
@@ -10,11 +10,12 @@ class CategoryDetailComponent extends React.Component {
         return (
             <div className="col-lg-3 col-md-6 col-sm-6 mb-4">
                 <Link className="cursor" to={path}>
-                    <div className="stats-small stats-small--1 card-no-border-r card card-small">
+                    <div className="stats-small stats-small--1 card-no-border-r">
                         <div className="card-body p-0 d-flex">
                             <div className="d-flex flex-column m-auto">
                                 <div className="stats-small__data text-center" >
-                                    <img className="r-img-fill-100 m-auto" src={this.props.image}/>
+                                    <img alt="" className="r-img-fill-100 m-auto" src={this.props.image}/>
+                                    <div><span className="r-text-duration">{this.props.duration}</span></div>
                                 </div>
                             </div>
                             <canvas height="120" className="blog-overview-stats-small-1"></canvas>
@@ -28,7 +29,7 @@ class CategoryDetailComponent extends React.Component {
                     {this.props.author.name}
                     </div>
                     <div className="col-lg-6 text-right">
-                        <FollowComponent/>
+                        <FavoriteComponent mediaId={this.props.id}/>
                     </div>
                 </div>
                 <div className="row margin-top-bot-2">
@@ -36,7 +37,7 @@ class CategoryDetailComponent extends React.Component {
                         <CommmentComponent id={this.props.id} commented={this.props.interactions.commented}/>
                     </div>
                     <div className="col-lg-6 text-right">
-                        <LikeDislikeComponent interactions={this.props.interactions}/>
+                        <LikeDislikeComponent mediaId={this.props.id} interactions={this.props.interactions} userInteraction={this.props.userInteraction}/>
                     </div>
                 </div>
             </div>

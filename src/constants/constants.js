@@ -6,5 +6,9 @@ export const GET_CATEGORY_DETAIL_FAVORITED = 'GET_CATEGORY_DETAIL_FAVORITED';
 export const GET_CATEGORY_DETAIL_NEW = 'GET_CATEGORY_DETAIL_NEW';
 export const GET_MEDIA_DETAIL = 'GET_MEDIA_DETAIL';
 export const SEARCH_MEDIA = 'SEARCH_MEDIA';
+export const RESET_CATEGORY_DETAIL = 'RESET_CATEGORY_DETAIL';
 export const LOGIN_FB = 'LOGIN_FB';
 export const LOGOUT = 'LOGOUT';
+
+export const FACEBOOK = 'facebook';
+export const GOOGLE = 'google';

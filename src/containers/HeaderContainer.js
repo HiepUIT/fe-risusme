@@ -1,8 +1,8 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import {Link, Redirect} from 'react-router-dom';
+import {Route, Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {searchMedia} from './../actions/actions';
+import {searchMedia, loginAction} from './../actions/actions';
 import avatar from './../images/0.jpg';
 import logo from './../images/logo.jpg';
 import facebook from './../images/facebook.png';
@@ -10,8 +10,24 @@ import google from './../images/google.png';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import * as config from './../configs/configs';
-import {loginAction} from './../actions/actions';
 import * as constants from './../constants/constants';
+
+const CustomNavLink = ({label, to, activeOnlyWhenExact, showHide, icon}) => {
+    return (
+        <Route path={to} exact={activeOnlyWhenExact} children={
+            ({match}) => {
+                let show = showHide ? 'show' : 'hide';
+                let active = match ? ' active' : '';
+                let classN = 'dropdown-item ' + show + ' ' + active;
+                return (
+                    <Link className={classN} to={to}>
+                        <i className={icon}>&#xE7FD;</i> {label}
+                    </Link>
+                )
+            }
+        }/>
+    )
+}
 
 class HeaderContainer extends React.Component {
     constructor(props) {
@@ -30,8 +46,8 @@ class HeaderContainer extends React.Component {
 
     doSearchMedia = (e) => {
         if(e.which === 13){
-            this.setState({redirectToSearch: true});
-            this.props.searchMedia(this.state.searchValue, 1);
+           this.setState({redirectToSearch: true});
+           this.props.searchMedia(this.state.searchValue, 1);
         }
     }
 
@@ -46,14 +62,21 @@ class HeaderContainer extends React.Component {
 
     render() {
         let {redirectToSearch} = this.state;
-        let {auth} = this.props;
         let authAvatar = avatar;
         let authName = "";
-        if(typeof(auth.isAuth) != 'undefined' && auth.isAuth == true) {
-            authAvatar = auth.user.picture.data.url;
-            authName = auth.user.name;
+        let authUserStr = sessionStorage.getItem('authUser');
+        let authUser = JSON.parse(authUserStr);
+        let isAuth = false;
+        if(authUser !== null && authUser.isAuth === true) {
+            isAuth = true;
+            authAvatar = authUser.userInfo.avatar;
+            authName = authUser.userInfo.name;
         }
-        if(redirectToSearch) return <Redirect to="/search"/>
+        console.log('redirectToSearch', redirectToSearch);
+        if(redirectToSearch) {
+            this.setState({redirectToSearch: false});
+            return <Redirect to="/search"/>
+        }
         return (
             <div className="main-navbar sticky-top bg-white">
                 <nav className="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
@@ -65,6 +88,7 @@ class HeaderContainer extends React.Component {
                             </div>
                             </div>
                             <input className="navbar-search form-control" 
+                                value={this.state.searchValue}
                                 onChange={this.updateSearchValue} 
                                 onKeyPress={this.doSearchMedia}
                                 type="text" placeholder="Search for something..." aria-label="Search" /> 
@@ -106,17 +130,15 @@ class HeaderContainer extends React.Component {
                         <a className="dropdown-item notification__all text-center" > View all Notifications </a>
                         </div>
                     </li> */}
-                    <li className="nav-item dropdown">
+                    <li className="nav-item dropdown cursor">
                         <a className="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">
-                            <img className="user-avatar rounded-circle mr-2" src={authAvatar} alt="User Avatar" />
+                            <img alt="" className="user-avatar rounded-circle mr-2" src={authAvatar} alt="User Avatar" />
                             <span className="d-none d-md-inline-block">{authName}</span>
                         </a>
                         <div className="dropdown-menu dropdown-menu-small">
-                            <Link className="dropdown-item" href="user-profile-lite.html" to="/settings">
-                                <i className="material-icons">&#xE7FD;</i> Settings
-                            </Link>
+                            <CustomNavLink label="Setting" to="/settings" activeOnlyWhenExact={false} showHide={isAuth} icon="material-icons"/>
                             <div className="dropdown-divider" />
-                            <a className="dropdown-item text-danger" onClick={() => this.setState({isShowModal: true})}>
+                            <a className="dropdown-item text-danger cursor" onClick={() => this.setState({isShowModal: true})}>
                                 <i className="material-icons text-danger">&#xE879;</i> Login </a>
                         </div>
                     </li>
@@ -130,7 +152,7 @@ class HeaderContainer extends React.Component {
                 <Modal show={this.state.isShowModal} onHide={() => this.setState({isShowModal: false})}>
                     <Modal.Body>
                         <div className="row">
-                            <img className="img-logo-login" src={logo}/>
+                            <img alt="" className="img-logo-login" src={logo}/>
                         </div>
                         <div className="row">
                             <span className="m-auto login-text">Login</span>
@@ -145,7 +167,7 @@ class HeaderContainer extends React.Component {
                                 fields="name,email,picture" 
                                 textButton=""
                                 cssClass="my-login-facebook"
-                                icon={<img className="img-social-login" src={facebook}/>}
+                                icon={<img alt="" className="img-social-login" src={facebook}/>}
                                 callback={this.responseFacebook}/>
                         </div>
                         <div className="row r-socical">
@@ -153,7 +175,7 @@ class HeaderContainer extends React.Component {
                                 clientId={config.GOOGLE_ID}
                                 buttonText=""
                                 render={
-                                    (renderProps) => (<img onClick={renderProps.onClick} className="img-social-login" src={google}/>)
+                                    (renderProps) => (<img alt="" onClick={renderProps.onClick} className="img-social-login" src={google}/>)
                                 }
                                 onSuccess={this.responseGoogle}
                             >

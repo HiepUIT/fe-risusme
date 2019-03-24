@@ -4,9 +4,6 @@ import {getListCategory} from './../actions/actions';
 import ListCategoryComponent from './../components/ListCategoryComponent';
 
 class ListCategoryContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.getListCategory();

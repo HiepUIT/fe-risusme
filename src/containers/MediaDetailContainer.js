@@ -4,11 +4,9 @@ import {getMedialDetail} from './../actions/actions';
 import MediaDetailComponent from './../components/MediaDetailComponent';
 
 class MediaDetailContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         let id = this.props.match.params.id;
         this.props.getMedialDetail(id);
     }
@@ -17,14 +15,16 @@ class MediaDetailContainer extends React.Component {
         var {mediaDetail} = this.props;
         return (
             <div className="row row-margin">
-                <MediaDetailComponent
+                {typeof(mediaDetail.userInteraction) !== 'undefined' && <MediaDetailComponent
+                    mediaId={mediaDetail.id}
                     image={mediaDetail.image}
                     title={mediaDetail.title}
                     url={mediaDetail.url}
                     interactions={mediaDetail.interactions}
+                    userInteraction={mediaDetail.userInteraction}
                     comments={mediaDetail.comments}
                     author={mediaDetail.author}
-                />
+                />}
             </div>
         );
     }
