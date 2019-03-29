@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 class UserProfileContainer extends React.Component {
 
     render() {
-        console.log('UserProfileContainer');
         return (
             <div className="row row-margin">
                 <div className="col-lg-3">

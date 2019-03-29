@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import CategoryDetailComponent from './../components/CategoryDetailComponent';
 import * as config from './../configs/configs';
+import * as constants from './../constants/constants';
 import {getCategoryDetailNew} from './../actions/actions';
 import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
@@ -25,9 +26,7 @@ class NewContainer extends React.Component {
     }
 
     loadFunc = (page) => {
-        console.log('loadmore', pageNum);
-        this.props.getCategoryDetailNew(config.CATEGORYID_NEW, pageNum);
-        pageNum++;
+        this.props.getCategoryDetailNew(config.CATEGORYID_NEW, ++pageNum);
     }
 
     render() {
@@ -58,6 +57,7 @@ class NewContainer extends React.Component {
                         data.map((elm, index) => {
                             return (
                                     <CategoryDetailComponent
+                                        categoryId={constants.GET_RELATIVE_MEDIA_NEW}
                                         key={index + data.length}
                                         id={elm.id}
                                         image={elm.image}

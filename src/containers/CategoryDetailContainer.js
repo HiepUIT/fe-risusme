@@ -26,21 +26,17 @@ class CategoryDetailContainer extends React.Component {
     componentDidUpdate(preProps) {
         if(preProps.match.params.id === this.props.match.params.id)
             return;
-        this.setState({pageStart: 1});
         let categoryId = this.props.match.params.id;
         this.props.getCategoryDetail(categoryId, 1);
     }
 
     loadFunc = () => {
-        console.log('loadmore', pageNum);
         let categoryId = this.props.match.params.id;
-        this.props.getCategoryDetail(categoryId, pageNum);
-        pageNum++;
+        this.props.getCategoryDetail(categoryId, ++pageNum);
     }
 
     render () {
-        let data = this.props.categoryDetails.data;
-        let isLoadMore = this.props.categoryDetails.isLoadMore;
+        let {data, isLoadMore} = this.props.categoryDetails;
         console.log('isLoadMore', isLoadMore);
         return (
             <div className="main-content-container container-fluid px-4">
@@ -68,6 +64,7 @@ class CategoryDetailContainer extends React.Component {
                             return (
                                     <CategoryDetailComponent
                                         key={index}
+                                        categoryId={this.props.categoryDetails.typeCategory}
                                         id={elm.id}
                                         image={elm.image}
                                         url={elm.url}

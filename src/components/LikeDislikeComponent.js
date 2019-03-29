@@ -3,17 +3,12 @@ import iconLikeImg from './../images/like.png';
 import iconLikePressImg from './../images/like_press.png';
 import iconDislikeImg from './../images/dislike.png';
 import iconDislikePressImg from './../images/dislike_press.png';
-import {likeAction, dislikeAction} from './../actions/actions';
+import {likeAction, dislikeAction, checkAuth} from './../actions/actions';
 
 class LikeDislikeComponent extends React.Component {
     constructor(props) {
         super(props);
-        let authUserStr = sessionStorage.getItem('authUser');
-        let authUser = JSON.parse(authUserStr);
-        let isAuth = false;
-        if(authUser !== null && authUser.isAuth === true) {
-            isAuth = true;
-        }
+        let isAuth = checkAuth();
         let {userInteraction} = this.props;
         let iconLike = iconLikeImg;
         let iconDislike = iconDislikeImg;
@@ -104,9 +99,9 @@ class LikeDislikeComponent extends React.Component {
         return (
             <div className="text-right">
                 <img alt="" className="r-detail-img-icon" onClick={this.likeAction} src={this.state.like.icon}/>
-                <span className="r-detail-padding-10">{typeof(data.interactions) != 'undefined' && this.state.like.likeInteraction}</span>
+                <span className="r-detail-padding-10">{data.interactions != undefined && this.state.like.likeInteraction}</span>
                 <img alt="" className="r-detail-img-icon" onClick={this.dislikeAction} src={this.state.dislike.icon}/> 
-                <span className="r-detail-padding-10">{typeof(data.interactions) != 'undefined' && this.state.dislike.dislikeInteraction}</span>
+                <span className="r-detail-padding-10-r0">{data.interactions != undefined && this.state.dislike.dislikeInteraction}</span>
             </div>
         );
     }

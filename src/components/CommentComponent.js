@@ -13,7 +13,7 @@ class CommmentComponent extends React.Component {
         return (
             <React.Fragment>
                 <img alt="" onClick={this.showDetail} className="r-detail-img-icon" src={cmt}/>
-                <span className="r-detail-padding-10">{typeof(this.props.commented) != 'undefined' && this.props.commented}</span>
+                <span className="r-detail-padding-10">{this.props.commented !== undefined && this.props.commented}</span>
             </React.Fragment>
         );
     }

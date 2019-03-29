@@ -19,6 +19,7 @@ export const API_LIKE_MEDIA = "http://tho-test2.azurewebsites.net/api/media/like
 export const API_DISLIKE_MEDIA = "http://tho-test2.azurewebsites.net/api/media/dislike";
 export const API_FAVORITE_MEDIA = "http://tho-test2.azurewebsites.net/api/media/favorite";
 export const API_LOGIN = "http://tho-test2.azurewebsites.net/api/account/signin";
+export const API_COMMENT_MEDIA = "http://tho-test2.azurewebsites.net/api/Comment";
 
 export const FB_ID = "673065919800419";
 export const GOOGLE_ID = "824430253840-dh9qrain0sdg2np8h5kcoaqhooavpb4h.apps.googleusercontent.com";

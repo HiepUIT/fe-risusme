@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getMedialDetail} from './../actions/actions';
 import MediaDetailComponent from './../components/MediaDetailComponent';
+import ListRelativeMediaContainer from './ListRelativeMediaContainer';
 
 class MediaDetailContainer extends React.Component {
 
@@ -15,16 +16,21 @@ class MediaDetailContainer extends React.Component {
         var {mediaDetail} = this.props;
         return (
             <div className="row row-margin">
-                {typeof(mediaDetail.userInteraction) !== 'undefined' && <MediaDetailComponent
-                    mediaId={mediaDetail.id}
-                    image={mediaDetail.image}
-                    title={mediaDetail.title}
-                    url={mediaDetail.url}
-                    interactions={mediaDetail.interactions}
-                    userInteraction={mediaDetail.userInteraction}
-                    comments={mediaDetail.comments}
-                    author={mediaDetail.author}
-                />}
+                <div className="col-lg-8 col-sm-12">
+                    {mediaDetail.userInteraction !== undefined && <MediaDetailComponent
+                        mediaId={mediaDetail.id}
+                        image={mediaDetail.image}
+                        title={mediaDetail.title}
+                        url={mediaDetail.url}
+                        interactions={mediaDetail.interactions}
+                        userInteraction={mediaDetail.userInteraction}
+                        comments={mediaDetail.comments}
+                        author={mediaDetail.author}
+                    />}
+                </div>
+                <div className="col-lg-4 col-sm-12">
+                    <ListRelativeMediaContainer mediaId={this.props.match.params.id} categoryId={this.props.match.params.categoryId}/>
+                </div>
             </div>
         );
     }

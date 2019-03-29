@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getCategoryDetailHot} from './../actions/actions';
 import * as config from './../configs/configs';
+import * as constants from './../constants/constants';
 import CategoryDetailComponent from './../components/CategoryDetailComponent';
 import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
@@ -27,9 +28,7 @@ class HotContainer extends React.Component {
     }
 
     loadFunc = () => {
-        console.log('loadmore', pageNum);
-        this.props.getCategoryDetailHot(config.CATEGORYID_HOT, pageNum);
-        pageNum++;
+        this.props.getCategoryDetailHot(config.CATEGORYID_HOT, ++pageNum);
     }
 
     render() {
@@ -62,6 +61,7 @@ class HotContainer extends React.Component {
                         data.map((elm, index) => {
                             return (
                                     <CategoryDetailComponent
+                                        categoryId={constants.GET_RELATIVE_MEDIA_HOT}
                                         key={index + data.length}
                                         id={elm.id}
                                         image={elm.image}

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {getCategoryDetailFavorited} from './../actions/actions';
 import CategoryDetailComponent from './../components/CategoryDetailComponent';
 import * as config from './../configs/configs';
+import * as constants from './../constants/constants';
 import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
 import {css} from '@emotion/core';
@@ -13,15 +14,16 @@ const override = css`
     border-color: red;
 `;
 
+let pageNum = 1;
 class FavoritedContainer extends React.Component {
 
     componentDidMount() {
         this.props.getCategoryDetailFavorited(config.CATEGORYID_FAVORITED, 1);
+        pageNum = 1;
     }
 
-    loadFunc = (page) => {
-        console.log('loadmore', page);
-        this.props.getCategoryDetailFavorited(config.CATEGORYID_FAVORITED, page);
+    loadFunc = () => {
+        this.props.getCategoryDetailFavorited(config.CATEGORYID_FAVORITED, ++pageNum);
     }
 
     render() {
@@ -52,6 +54,7 @@ class FavoritedContainer extends React.Component {
                         data.map((elm, index) => {
                             return (
                                     <CategoryDetailComponent
+                                        categoryId={constants.GET_RELATIVE_MEDIA_FAVORITED}
                                         key={index + data.length}
                                         id={elm.id}
                                         image={elm.image}

@@ -129,10 +129,21 @@ p {
   padding: .375rem;
 }
 
-.r-cmt-content{
+.r-cmt-content {
   padding-left: 3.375rem;
-  font-size: 15px;
+  font-size: .9rem;
+  font-weight: 400;
+  color: #000000;
+}
+
+div.r-cmt-content {
+  padding-bottom: 5px;
+}
+
+.r-author-name {
   font-weight: bold;
+  font-size: 1.1rem;
+  color: #000000;
 }
 
 .r-detail-img-icon {
@@ -148,6 +159,15 @@ p {
 .r-detail-padding-10 {
   padding-left: 10px;
   padding-right: 50px;
+}
+
+.r-detail-padding-10-r0 {
+  padding-left: 10px;
+}
+
+.r-margin-50 {
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .r-img-fill-100 {
@@ -213,4 +233,30 @@ button:focus {
 
 .hide {
   display: none;
+}
+
+.r-like-cmt-icon {
+  padding-bottom: 2px;
+  width: 15px;
+  cursor: pointer;
+}
+
+.r-like-cmt-detail-padding-2 {
+  padding-left: 2px;
+}
+
+.r-relative-media-box {
+  margin: 5px 10px 5px;
+}
+
+.r-max-width-50 {
+  max-width: 50% !important;
+}
+
+.r-height-200 {
+  height: 200px !important;
+}
+
+.r-padding-left-right {
+  padding: 0px 10px 0px 0px;
 }

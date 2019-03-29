@@ -7,10 +7,31 @@ export const getToken = () => {
     let authUserStr = sessionStorage.getItem('authUser');
     let authUser = JSON.parse(authUserStr);
     let token = '';
-    if(typeof(authUser) !== 'undefined' && authUser.isAuth !== '') {
+    if(authUser !== null && authUser.isAuth !== '') {
         token = 'Bearer ' + authUser.token;
     }
     return token;
+}
+
+export const checkAuth = () => {
+    let authUserStr = sessionStorage.getItem('authUser');
+    let authUser = JSON.parse(authUserStr);
+    let isAuth = false;
+    if(authUser !== null && authUser.isAuth === true) {
+        isAuth = true;
+    }
+    return isAuth;
+}
+
+export const getAuth = () => {
+    let authUserStr = sessionStorage.getItem('authUser');
+    let authUser = JSON.parse(authUserStr);
+    if(authUser !== undefined) {
+        let auth = {name: authUser.userInfo.name,
+            avatar: authUser.userInfo.avatar};
+        return auth;
+    }
+    return null;
 }
 
 export var getCategoryDetail = (category, page) => {
@@ -41,7 +62,8 @@ export var getListCategory = () => {
 export var getCategoryDetailHot = (category, page) => {
     return (dispatch) => {
         let url = config.API_CATEGORY_DETAIL_HOT.replace('{CATEGORYID}', category).replace('{PAGE}', page);
-        axios.get(url).then(res => {
+        let token = getToken();
+        axios.get(url, {headers: {'Authorization': token}}).then(res => {
             let isLoadMore = true;
             if(res.data.data.data.length === 0)
                 isLoadMore = false;
@@ -81,13 +103,17 @@ export var getCategoryDetailFavorited = (category, page) => {
     return (dispatch) => {
         let url = config.API_CATEGORY_DETAIL_FAVORITED.replace('{CATEGORYID}', category).replace('{PAGE}', page);
         let token = getToken();
+
+        if(token === '') 
+            return;
+
         axios.get(url, {headers: {'Authorization': token}}).then(res => {
             let isLoadMore = true;
             if(res.data.data.data.length === 0)
                 isLoadMore = false;
-            dispatch({type: type.GET_CATEGORY_DETAIL_FAVORITED, data: {typeCategory: category, isLoadMore: isLoadMore, data: res.data.data.data}});
+            dispatch({type: type.GET_CATEGORY_DETAIL_FAVORITED, data: {typeCategory: type.GET_CATEGORY_DETAIL_FAVORITED, isLoadMore: isLoadMore, data: res.data.data.data}});
         }).catch(err => {
-            dispatch({type: type.GET_CATEGORY_DETAIL_FAVORITED, data: {typeCategory: category, isLoadMore: false, data: []}});
+            dispatch({type: type.GET_CATEGORY_DETAIL_FAVORITED, data: {typeCategory: type.GET_CATEGORY_DETAIL_FAVORITED, isLoadMore: false, data: []}});
         })
     }
 }
@@ -116,7 +142,7 @@ export var searchMedia = (title, page) => {
 }
 export var loginAction = (auth, login) => {
     return (dispatch) => {
-        if(typeof(auth) != 'undefined') {
+        if(auth != undefined) {
             let url = config.API_LOGIN;
             let provider = type.FACEBOOK;
             let code = auth.accessToken;
@@ -155,6 +181,9 @@ export var likeAction = mediaId => {
     let url = config.API_LIKE_MEDIA + '?id=' + mediaId;
     let token = getToken();
 
+    if(token === '') 
+        return;
+
     axios.put(url, {}, {headers: {'Authorization': token}}).then(res => {
         console.log(res);
     }).catch(err => {
@@ -165,6 +194,9 @@ export var likeAction = mediaId => {
 export var dislikeAction = mediaId => {
     let url = config.API_DISLIKE_MEDIA + '?id=' + mediaId;
     let token = getToken();
+
+    if(token === '') 
+        return;
 
     axios.put(url, {}, {headers: {'Authorization': token}}).then(res => {
         console.log(res);
@@ -177,9 +209,50 @@ export var favoriteAction = mediaId => {
     let url = config.API_FAVORITE_MEDIA + '?id=' + mediaId;
     let token = getToken();
 
+    if(token === '') 
+        return;
+
     axios.put(url, {}, {headers: {'Authorization': token}}).then(res => {
         console.log(res);
     }).catch(err => {
         console.log(err);
     })
+}
+
+export var getListRelativeMedia = (typeRelativeMedia, category, page, mediaId) => {
+    let url = '';
+    console.log('mediaId', mediaId);
+    if(typeRelativeMedia === type.GET_RELATIVE_MEDIA_HOT)
+        url = config.API_CATEGORY_DETAIL_HOT.replace('{CATEGORYID}', category).replace('{PAGE}', page);
+    else if(typeRelativeMedia === type.GET_RELATIVE_MEDIA_NEW)
+        url = config.API_CATEGORY_DETAIL_NEW.replace('{CATEGORYID}', category).replace('{PAGE}', page);
+    else if(typeRelativeMedia === type.GET_RELATIVE_MEDIA_FAVORITED)
+        url = config.API_CATEGORY_DETAIL_FAVORITED.replace('{CATEGORYID}', category).replace('{PAGE}', page);
+    else
+        url = config.API_CATEGORY_DETAIL.replace('{CATEGORYID}', category).replace('{PAGE}', page);
+    
+    return (dispatch) => {
+        axios.get(url).then(res => {
+            let isLoadMore = true;
+            if(res.data.data.data.length === 0)
+                isLoadMore = false;
+            dispatch({type: typeRelativeMedia, isLoadMore, data: res.data.data.data, mediaId});
+        }).catch(err => {
+            dispatch({type: typeRelativeMedia, isLoadMore: false, data: [], mediaId});
+        });
+    }
+}
+
+export default commentAction = (content, idCode, id, mediaId) => {
+    let token = getToken();
+
+    if(token === '') 
+        return;
+    let url = config.API_COMMENT_MEDIA;
+    axios.put(url, {}, {headers: {'Authorization': token}}).then(res => {
+        console.log(res);
+    }).catch(err => {
+        console.log(err);
+    })
+    
 }

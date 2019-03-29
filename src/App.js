@@ -36,7 +36,7 @@ class App extends Component {
                   );
                 })
               }
-              <Route path="/media/:id" component={MediaDetailContainer}/>
+              <Route path="/media/:categoryId/:id" component={MediaDetailContainer}/>
               <Route path="/search" component={(props) => <SearchMediaContainer dataSearch={dataSearch}/>}/>
             </Switch>
           </main>

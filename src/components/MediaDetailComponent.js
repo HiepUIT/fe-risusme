@@ -4,6 +4,7 @@ import ShareComponent from './../components/ShareComponent';
 import FavoriteComponent from './FavoriteComponent';
 import ListCommentComponent from './ListCommentComponent';
 import "./../../node_modules/video-react/dist/video-react.css";
+import {checkAuth, getAuth, commentAction} from './../actions/actions';
 import {
   Player,
   ControlBar,
@@ -18,16 +19,50 @@ import {
 
 class MediaDetailComponent extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state={
+            dataCMT: []
+        }
+    }
+    
     componentDidUpdate(prevProps) {
         if (this.props.url !== prevProps.url) {
           this.refs.player.load();
         }
     }
 
+    doComment = (e) => {
+        if(e.which === 13 && this.commentText.value !== '') {
+            let isAuth = checkAuth();
+            if(!isAuth)
+                return;
+            console.log('commentText', this.commentText.value);
+            let interactions = {
+                liked: false
+            }
+            let createdDate = (new Date()).toISOString();
+            let cmtObj = {
+                author: getAuth(),
+                content: this.commentText.value,
+                interactions,
+                createdDate
+            }
+
+            let dataCMT = [];
+            dataCMT.push(cmtObj);
+            this.setState({dataCMT});
+            this.props.comments.push(cmtObj);
+            commentAction(this.commentText.value, createdDate, '0', this.props.mediaId);
+            this.commentText.value = '';
+        }
+    }
+
     render() {
         var data = this.props;
+        console.log('csda', data);
         return (
-            <div className="col-lg-8 col-sm-12">
+            <React.Fragment>
                 <div className="card card-small card-post">
                     <Player ref="player"
                         playsInline
@@ -49,37 +84,38 @@ class MediaDetailComponent extends React.Component {
                     {data.title}
                 </p>
                 <p className="row-padding">
-                    by {typeof(data.author) != 'undefined' && data.author.name}
+                    by {data.author !== undefined && data.author.name}
                 </p>
                 <div className="row row-padding row-padding-bottom">
                     <div className="col-lg-6">
                         views
                     </div>
                     <div className="col-lg-6 inline-flex">
-                        <LikeDislikeComponent mediaId={data.mediaId} userInteraction={data.userInteraction} interactions={data.interactions}/>
-                        <ShareComponent/>
-                        <span className="r-detail-padding-10">&nbsp;</span>
-                        <FavoriteComponent mediaId={data.mediaId}/>
+                        <LikeDislikeComponent key={'like' + data.mediaId} mediaId={data.mediaId} userInteraction={data.userInteraction} interactions={data.interactions}/>
+                        <ShareComponent key={'share' + data.mediaId}/>
+                        <FavoriteComponent key={'favorite' + data.mediaId} mediaId={data.mediaId}/>
                     </div>
                 </div>
-                <input type="text" className="form-control form-control-lg mb-3" placeholder="Write a comment"/>
+                <input ref={(input) => this.commentText = input} onKeyPress={this.doComment} type="text" className="form-control form-control-lg mb-3" placeholder="Write a comment"/>
                 <p className="r-media-title-large">
                     {
-                        typeof(data.comments) != 'undefined' && data.comments.length
+                        data.comments !== undefined && data.comments.length
                     } COMMENTS
                 </p>
                 {
-                    typeof(data.comments) != 'undefined' && data.comments.map((elm, index) => {
+                    data.comments !== undefined && data.comments.map((elm, index) => {
                         return (
                             <ListCommentComponent 
                                 key={index}
                                 author={elm.author}
                                 createdDate={elm.createdDate}
-                                content={elm.content}/>
+                                content={elm.content}
+                                interactions={elm.interactions}
+                                userInteraction={elm.userInteraction}/>
                         )
                     })
                 }
-            </div>
+            </React.Fragment>
         );
     }
 }
