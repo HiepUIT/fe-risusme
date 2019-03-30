@@ -18,6 +18,7 @@ class MediaDetailContainer extends React.Component {
             <div className="row row-margin">
                 <div className="col-lg-8 col-sm-12">
                     {mediaDetail.userInteraction !== undefined && <MediaDetailComponent
+                        key={mediaDetail.id}
                         mediaId={mediaDetail.id}
                         image={mediaDetail.image}
                         title={mediaDetail.title}

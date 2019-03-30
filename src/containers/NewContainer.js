@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import CategoryDetailComponent from './../components/CategoryDetailComponent';
 import * as config from './../configs/configs';
 import * as constants from './../constants/constants';
-import {getCategoryDetailNew} from './../actions/actions';
+import {getCategoryDetailNew, resetCategoryDetail} from './../actions/actions';
 import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
 import {css} from '@emotion/core';
@@ -19,8 +19,9 @@ class NewContainer extends React.Component {
         super(props);
         pageNum = 1;
     }
-    
+
     componentDidMount() {
+        this.props.resetCategoryDetail();
         window.scrollTo(0, 0);
         this.props.getCategoryDetailNew(config.CATEGORYID_NEW, 1);
     }
@@ -89,6 +90,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getCategoryDetailNew: (category, page) => {
             dispatch(getCategoryDetailNew(category, page));
+        },
+        resetCategoryDetail: () => {
+            dispatch(resetCategoryDetail());
         }
     }
 }

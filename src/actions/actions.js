@@ -59,6 +59,12 @@ export var getListCategory = () => {
     }
 }
 
+export var resetCategoryDetail = () => {
+    return (dispatch) => {
+        dispatch({type: type.RESET_CATEGORY_DETAIL, data: {}});
+    }
+}
+ 
 export var getCategoryDetailHot = (category, page) => {
     return (dispatch) => {
         let url = config.API_CATEGORY_DETAIL_HOT.replace('{CATEGORYID}', category).replace('{PAGE}', page);
@@ -69,7 +75,7 @@ export var getCategoryDetailHot = (category, page) => {
                 isLoadMore = false;
             dispatch({type: type.GET_CATEGORY_DETAIL_HOT, data: {typeCategory: type.GET_CATEGORY_DETAIL_HOT, isLoadMore: isLoadMore, data: res.data.data.data}});
         }).catch(err => {
-            dispatch({type: type.GET_CATEGORY_DETAIL_HOT, data: {typeCategory: type.GET_CATEGORY_DETAIL_HOT, isLoadMore: false, data: []}});
+            dispatch({type: type.GET_CATEGORY_DETAIL_HOT, data: {typeCategory: type.GET_CATEGORY_DETAIL_HOT, isLoadMore: false, data: {}}});
         })
     }
 }
@@ -243,16 +249,36 @@ export var getListRelativeMedia = (typeRelativeMedia, category, page, mediaId) =
     }
 }
 
-export default commentAction = (content, idCode, id, mediaId) => {
+export var commentAction = (content, idCode, id, mediaId) => {
     let token = getToken();
-
+    console.log('token', token);
     if(token === '') 
         return;
     let url = config.API_COMMENT_MEDIA;
-    axios.put(url, {}, {headers: {'Authorization': token}}).then(res => {
-        console.log(res);
-    }).catch(err => {
-        console.log(err);
-    })
+    let cmtObj = {
+        content,
+        idCode,
+        id,
+        mediaId
+    };
+    return (dispatch) => {
+        axios.put(url, cmtObj, {headers: {'Authorization': token}}).then(res => {
+            dispatch({type: type.COMMENT_ACTION, data: res.data.data});
+        }).catch(err => {
+            dispatch({type: type.COMMENT_ACTION, data: {}});
+        })
+    }
     
+}
+
+export var getListComment = (mediaId, page) => {
+    let url = config.API_LIST_COMMENT.replace('{MEDIAID}', mediaId).replace('{PAGE}', page);
+    let token = getToken();
+    return (dispatch) => {
+        axios.get(url, {headers: {'Authorization': token}}).then(res => {
+            dispatch({type: type.GET_LIST_COMMENT_ACTION, data: res.data.data});
+        }).catch(err => {
+            dispatch({type: type.GET_LIST_COMMENT_ACTION, data: []});
+        })
+    }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getCategoryDetailHot} from './../actions/actions';
+import {getCategoryDetailHot, resetCategoryDetail} from './../actions/actions';
 import * as config from './../configs/configs';
 import * as constants from './../constants/constants';
 import CategoryDetailComponent from './../components/CategoryDetailComponent';
@@ -23,6 +23,7 @@ class HotContainer extends React.Component {
     }
 
     componentDidMount() {
+        this.props.resetCategoryDetail();
         window.scrollTo(0, 0);
         this.props.getCategoryDetailHot(config.CATEGORYID_HOT, 1);
     }
@@ -93,6 +94,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getCategoryDetailHot: (categoryId, page) => {
             dispatch(getCategoryDetailHot(categoryId, page))
+        },
+        resetCategoryDetail: () => {
+            dispatch(resetCategoryDetail());
         }
     }
 }

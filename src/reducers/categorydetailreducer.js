@@ -52,7 +52,7 @@ var myReducer = (state = categoryDetailState, action) => {
             return Object.assign({}, state, {typeCategory: type.GET_CATEGORY_DETAIL_NEW, isLoadMore: action.data.isLoadMore, data: arr});
         }
         case type.RESET_CATEGORY_DETAIL: {
-            return Object.assign({}, state, {typeCategory: '', isLoadMore: true, data: action.data});
+            return Object.assign({}, state, {typeCategory: '', isLoadMore: false, data: action.data});
         }
         default: {
             return state;

@@ -4,7 +4,7 @@ import ShareComponent from './../components/ShareComponent';
 import FavoriteComponent from './FavoriteComponent';
 import ListCommentComponent from './ListCommentComponent';
 import "./../../node_modules/video-react/dist/video-react.css";
-import {checkAuth, getAuth, commentAction} from './../actions/actions';
+import {checkAuth, getAuth, commentAction, getListComment} from './../actions/actions';
 import {
   Player,
   ControlBar,
@@ -16,11 +16,14 @@ import {
   BigPlayButton,
   LoadingSpinner
 } from 'video-react';
+import {connect} from 'react-redux';
 
+let pageNum = 1;
 class MediaDetailComponent extends React.Component {
 
     constructor(props) {
         super(props);
+        pageNum = 1;
         this.state={
             dataCMT: []
         }
@@ -37,12 +40,12 @@ class MediaDetailComponent extends React.Component {
             let isAuth = checkAuth();
             if(!isAuth)
                 return;
-            console.log('commentText', this.commentText.value);
             let interactions = {
                 liked: false
             }
             let createdDate = (new Date()).toISOString();
             let cmtObj = {
+                id: '',
                 author: getAuth(),
                 content: this.commentText.value,
                 interactions,
@@ -53,14 +56,18 @@ class MediaDetailComponent extends React.Component {
             dataCMT.push(cmtObj);
             this.setState({dataCMT});
             this.props.comments.push(cmtObj);
-            commentAction(this.commentText.value, createdDate, '0', this.props.mediaId);
+            this.props.commentAction(this.commentText.value, createdDate, '0', this.props.mediaId);
             this.commentText.value = '';
         }
     }
 
+    componentDidMount() {
+        this.props.getListComment(this.props.mediaId, pageNum);
+    }
+
     render() {
         var data = this.props;
-        console.log('csda', data);
+        let {listComment} = this.props;
         return (
             <React.Fragment>
                 <div className="card card-small card-post">
@@ -103,7 +110,7 @@ class MediaDetailComponent extends React.Component {
                     } COMMENTS
                 </p>
                 {
-                    data.comments !== undefined && data.comments.map((elm, index) => {
+                    listComment.data !== undefined && listComment.data.map((elm, index) => {
                         return (
                             <ListCommentComponent 
                                 key={index}
@@ -120,4 +127,22 @@ class MediaDetailComponent extends React.Component {
     }
 }
 
-export default MediaDetailComponent;
+const mapStateToProps = (state) => {
+    return {
+        commentObj: state.commentReducer,
+        listComment: state.listCommentReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getListComment: (mediaId, page) => {
+            dispatch(getListComment(mediaId, page));
+        },
+        commentAction: (content, idCode, id, mediaId) => {
+            dispatch(commentAction(content, idCode, id, mediaId));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (MediaDetailComponent);

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getCategoryDetailFavorited} from './../actions/actions';
+import {getCategoryDetailFavorited, resetCategoryDetail} from './../actions/actions';
 import CategoryDetailComponent from './../components/CategoryDetailComponent';
 import * as config from './../configs/configs';
 import * as constants from './../constants/constants';
@@ -16,10 +16,15 @@ const override = css`
 
 let pageNum = 1;
 class FavoritedContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        pageNum = 1;
+    }
 
     componentDidMount() {
+        this.props.resetCategoryDetail();
+        window.scrollTo(0, 0);
         this.props.getCategoryDetailFavorited(config.CATEGORYID_FAVORITED, 1);
-        pageNum = 1;
     }
 
     loadFunc = () => {
@@ -87,6 +92,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getCategoryDetailFavorited: (category, page) => {
             dispatch(getCategoryDetailFavorited(category, page));
+        },
+        resetCategoryDetail: () => {
+            dispatch(resetCategoryDetail());
         }
     }
 }

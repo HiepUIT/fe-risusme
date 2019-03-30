@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getCategoryDetail} from '../actions/actions';
+import {getCategoryDetail, resetCategoryDetail} from '../actions/actions';
 import CategoryDetailComponent from '../components/CategoryDetailComponent';
 import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
@@ -18,6 +18,7 @@ class CategoryDetailContainer extends React.Component {
         pageNum = 1;
     }
     componentDidMount() {
+        this.props.resetCategoryDetail();
         window.scrollTo(0, 0);
         let categoryId = this.props.match.params.id;
         this.props.getCategoryDetail(categoryId, 1);
@@ -26,6 +27,8 @@ class CategoryDetailContainer extends React.Component {
     componentDidUpdate(preProps) {
         if(preProps.match.params.id === this.props.match.params.id)
             return;
+        this.props.resetCategoryDetail();
+        window.scrollTo(0, 0);
         let categoryId = this.props.match.params.id;
         this.props.getCategoryDetail(categoryId, 1);
     }
@@ -95,6 +98,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getCategoryDetail: (categoryId, page) => {
             dispatch(getCategoryDetail(categoryId, page));
+        },
+        resetCategoryDetail: () => {
+            dispatch(resetCategoryDetail());
         }
     }
 }

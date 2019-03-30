@@ -1,11 +1,13 @@
 import {combineReducers} from 'redux';
 import categoryDetailReducer from './categorydetailreducer';
-import listCategoryReducer from './listcategoryReducer';
+import listCategoryReducer from './listcategoryreducer';
 import mediaDetailReducer from './mediadetailreducer';
 import searchReducer from './searchreducer';
 import authReducer from './authreducer';
 import suggestSearchReducer from './suggestsearchreducer';
 import listRelativeMediaReducer from './listrealativemediareducer';
+import commentReducer from './commentreducer';
+import listCommentReducer from './listcommentreducer';
 
 const myReducer = combineReducers({
     categoryDetailReducer,
@@ -14,7 +16,9 @@ const myReducer = combineReducers({
     searchReducer,
     authReducer,
     suggestSearchReducer,
-    listRelativeMediaReducer
+    listRelativeMediaReducer,
+    commentReducer,
+    listCommentReducer
 })
 
 export default myReducer;
