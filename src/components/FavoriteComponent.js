@@ -6,9 +6,15 @@ import {favoriteAction} from './../actions/actions';
 class FavoriteComponent extends React.Component {
     constructor(props) {
         super(props);
+        let isFavorite = false;
+        if(this.props.userInteraction !== undefined)
+            isFavorite = this.props.userInteraction.isFavorited;
+        let iconFavorite = star;
+        if(isFavorite)
+            iconFavorite = starPress;
         this.state = {
-            isFavorite: false,
-            iconFavorite: star
+            isFavorite,
+            iconFavorite
         }
     }
 

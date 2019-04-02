@@ -52,11 +52,18 @@ class HeaderContainer extends React.Component {
     }
 
     responseFacebook = (res) => {
-        this.props.loginAction(res, constants.LOGIN_FB);
+        this.props.loginAction(res, constants.LOGIN_FB).then(res => {
+            this.setState({isShowModal: false});
+        });
     }
 
     responseGoogle = (res) => {
-        console.log('responseGoogle', res);
+        let googleObj = {
+            accessToken: res.accessToken
+        }
+        this.props.loginAction(googleObj, constants.LOGIN_GOOGLE).then(res => {
+            this.setState({isShowModal: false});
+        });
     }
 
 
@@ -72,7 +79,6 @@ class HeaderContainer extends React.Component {
             authAvatar = authUser.userInfo.avatar;
             authName = authUser.userInfo.name;
         }
-        console.log('redirectToSearch', redirectToSearch);
         if(redirectToSearch) {
             this.setState({redirectToSearch: false});
             return <Redirect to="/search"/>
@@ -223,8 +229,8 @@ const mapDispatchToProps = (dispatch) => {
         searchMedia: (title, page) => {
             dispatch(searchMedia(title, page));
         },
-        loginAction: (auth, type) => {
-            dispatch(loginAction(auth, type))
+        loginAction: async (auth, type) => {
+            await dispatch(loginAction(auth, type))
         }
     }
 }

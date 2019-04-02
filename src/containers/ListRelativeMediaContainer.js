@@ -52,7 +52,6 @@ class ListRelativeMediaContainer extends React.Component {
 
     render() {
         let {data, isLoadMore} = this.props.listRelativeMedia;
-        console.log('isLoadMore', isLoadMore);
         return (
             <React.Fragment>
                 {data.length > 0 && <InfiniteScroll

@@ -130,6 +130,7 @@ p {
 }
 
 .r-cmt-content {
+  word-wrap: break-word;
   padding-left: 3.375rem;
   font-size: .9rem;
   font-weight: 400;
@@ -259,4 +260,8 @@ button:focus {
 
 .r-padding-left-right {
   padding: 0px 10px 0px 0px;
+}
+
+.r-margin-left-50 {
+  margin-left: 50px;
 }

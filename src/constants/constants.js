@@ -8,6 +8,7 @@ export const GET_MEDIA_DETAIL = 'GET_MEDIA_DETAIL';
 export const SEARCH_MEDIA = 'SEARCH_MEDIA';
 export const RESET_CATEGORY_DETAIL = 'RESET_CATEGORY_DETAIL';
 export const LOGIN_FB = 'LOGIN_FB';
+export const LOGIN_GOOGLE = 'LOGIN_GOOLE';
 export const LOGOUT = 'LOGOUT';
 
 export const GET_RELATIVE_MEDIA = 'GET_RELATIVE_MEDIA';

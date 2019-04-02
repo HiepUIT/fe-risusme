@@ -6,7 +6,7 @@ var myReducer = (state = listCommentState, action) => {
     switch(action.type) {
         case type.GET_LIST_COMMENT_ACTION: {
             state = action.data;
-            return state;
+            return Object.assign({}, state, action.data);
         }
         default: {
             return state;

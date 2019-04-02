@@ -17,6 +17,8 @@ import {
   LoadingSpinner
 } from 'video-react';
 import {connect} from 'react-redux';
+import * as type from './../constants/constants';
+import ReportComponent from './ReportComponent';
 
 let pageNum = 1;
 class MediaDetailComponent extends React.Component {
@@ -24,9 +26,6 @@ class MediaDetailComponent extends React.Component {
     constructor(props) {
         super(props);
         pageNum = 1;
-        this.state={
-            dataCMT: []
-        }
     }
     
     componentDidUpdate(prevProps) {
@@ -44,19 +43,22 @@ class MediaDetailComponent extends React.Component {
                 liked: false
             }
             let createdDate = (new Date()).toISOString();
+
             let cmtObj = {
                 id: '',
-                author: getAuth(),
                 content: this.commentText.value,
-                interactions,
-                createdDate
+                createdDate,
+                author: getAuth(),
+                interactions
             }
 
-            let dataCMT = [];
-            dataCMT.push(cmtObj);
-            this.setState({dataCMT});
-            this.props.comments.push(cmtObj);
-            this.props.commentAction(this.commentText.value, createdDate, '0', this.props.mediaId);
+            this.props.commentAction(this.commentText.value, createdDate, '0', this.props.mediaId).then(res => {
+                cmtObj.id = this.props.commentObj.comment.id;
+                this.props.listComment.data.splice(0, 0, cmtObj);
+                this.props.updateListCmt({type: type.GET_LIST_COMMENT_ACTION, data: this.props.listComment});
+            }).catch(err => {
+                console.log('err', err);
+            });
             this.commentText.value = '';
         }
     }
@@ -100,13 +102,14 @@ class MediaDetailComponent extends React.Component {
                     <div className="col-lg-6 inline-flex">
                         <LikeDislikeComponent key={'like' + data.mediaId} mediaId={data.mediaId} userInteraction={data.userInteraction} interactions={data.interactions}/>
                         <ShareComponent key={'share' + data.mediaId}/>
-                        <FavoriteComponent key={'favorite' + data.mediaId} mediaId={data.mediaId}/>
+                        <FavoriteComponent key={'favorite' + data.mediaId} mediaId={data.mediaId} userInteraction={data.userInteraction}/>
+                        <ReportComponent key={'report' + data.mediaId} mediaId={data.mediaId}/>
                     </div>
                 </div>
                 <input ref={(input) => this.commentText = input} onKeyPress={this.doComment} type="text" className="form-control form-control-lg mb-3" placeholder="Write a comment"/>
                 <p className="r-media-title-large">
                     {
-                        data.comments !== undefined && data.comments.length
+                        listComment.data !== undefined && listComment.data.length
                     } COMMENTS
                 </p>
                 {
@@ -114,6 +117,7 @@ class MediaDetailComponent extends React.Component {
                         return (
                             <ListCommentComponent 
                                 key={index}
+                                cmtId={elm.id}
                                 author={elm.author}
                                 createdDate={elm.createdDate}
                                 content={elm.content}
@@ -139,9 +143,10 @@ const mapDispatchToProps = (dispatch) => {
         getListComment: (mediaId, page) => {
             dispatch(getListComment(mediaId, page));
         },
-        commentAction: (content, idCode, id, mediaId) => {
-            dispatch(commentAction(content, idCode, id, mediaId));
-        }
+        commentAction: async (content, idCode, id, mediaId) => {
+            await dispatch(commentAction(content, idCode, id, mediaId));
+        },
+        updateListCmt: action => dispatch(action)
     }
 }
 
