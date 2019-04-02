@@ -74,6 +74,9 @@ class MediaDetailComponent extends React.Component {
             <React.Fragment>
                 <div className="card card-small card-post">
                     <Player ref="player"
+                        fluid={false}
+                        width={881}
+                        height={496}
                         playsInline
                         autoPlay
                         poster={data.image}>
