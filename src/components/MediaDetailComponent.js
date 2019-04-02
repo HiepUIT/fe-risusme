@@ -75,8 +75,8 @@ class MediaDetailComponent extends React.Component {
                 <div className="card card-small card-post">
                     <Player ref="player"
                         fluid={false}
-                        width={881}
-                        height={496}
+                        width={882}
+                        height={497}
                         playsInline
                         autoPlay
                         poster={data.image}>
