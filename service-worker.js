@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/fe-risusme/precache-manifest.2c0968b49717c1c3d9f6ff9adbce0dd3.js"
+  "/fe-risusme/precache-manifest.f5adbcdf0cfa792a06ae7cc48cba7690.js"
 );
 
 workbox.clientsClaim();

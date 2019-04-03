@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/fe-risusme/static/media/hot.8db8de3b.jpg"
   },
   {
-    "revision": "bbc2d5c5db4bfe92a7a7",
-    "url": "/fe-risusme/static/css/main.a3f6a18c.chunk.css"
+    "revision": "b863aac54140879e601d",
+    "url": "/fe-risusme/static/css/main.62391d4c.chunk.css"
   },
   {
     "revision": "20b1981c2eabb9d37886",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/fe-risusme/static/media/logo.d97071e4.jpg"
   },
   {
-    "revision": "bbc2d5c5db4bfe92a7a7",
+    "revision": "b863aac54140879e601d",
     "url": "/fe-risusme/static/js/main.ea4f1ecd.chunk.js"
   },
   {
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/fe-risusme/static/css/2.ef702857.chunk.css"
   },
   {
-    "revision": "c1ea91865ac680216007a288252bd84e",
+    "revision": "02727220d5afa39f56dcf1db28ff94af",
     "url": "/fe-risusme/index.html"
   }
 ];
