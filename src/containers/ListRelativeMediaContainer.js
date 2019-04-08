@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getListRelativeMedia} from './../actions/actions';
+import {getListRelativeMedia, resetRelativeMedia} from './../actions/actions';
 import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
 import RelativeMediaComponent from './../components/RelativeMediaComponent';
@@ -22,6 +22,7 @@ class ListRelativeMediaContainer extends React.Component {
     }
 
     componentDidMount() {
+        this.props.resetRelativeMedia();
         let categoryId = this.props.categoryId;
         let type = this.props.categoryId;
         if(categoryId === constants.GET_RELATIVE_MEDIA_HOT)
@@ -68,7 +69,6 @@ class ListRelativeMediaContainer extends React.Component {
                                 loading={true}/>
                         </div> 
                     }>
-                    <div className="row">
                         <div className="stats-small stats-small--1 card-no-border-r">
                             <div className="card-body p-0 d-flex">
                                 <div className="d-flex flex-column m-auto">
@@ -97,7 +97,6 @@ class ListRelativeMediaContainer extends React.Component {
                             );
                         })
                     } 
-                    </div>
                 </InfiniteScroll>
                 }
             </React.Fragment>
@@ -116,6 +115,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getListRelativeMedia: (type, categoryId, page, mediaId) => {
             dispatch(getListRelativeMedia(type, categoryId, page, mediaId));
+        },
+        resetRelativeMedia: async (mediaId) => {
+            await dispatch(resetRelativeMedia(mediaId));
         }
     }
 }

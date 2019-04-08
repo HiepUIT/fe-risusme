@@ -75,7 +75,7 @@ class MediaDetailComponent extends React.Component {
                 <div className="card card-small card-post">
                     <Player ref="player"
                         fluid={false}
-                        width={882}
+                        width="100%"
                         height={497}
                         playsInline
                         autoPlay
@@ -84,9 +84,9 @@ class MediaDetailComponent extends React.Component {
                         <LoadingSpinner/>
                         <BigPlayButton position="center"/>
                         <ControlBar>
-                            <ReplayControl seconds={10} order={1.1} />
-                            <ForwardControl seconds={10} order={1.2} />
-                            <PlaybackRateMenuButton rates={[2, 1.5, 1, 0.5, 0.1]} order={7.1} />
+                            {/* <ReplayControl seconds={10} order={1.1} /> */}
+                            {/* <ForwardControl seconds={10} order={1.2} /> */}
+                            {/* <PlaybackRateMenuButton rates={[2, 1.5, 1, 0.5, 0.1]} order={7.1} /> */}
                             <VolumeMenuButton />
                             <PlayToggle />
                         </ControlBar>

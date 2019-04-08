@@ -8,6 +8,10 @@ var myReducer = (state = mediaDetailState, action) => {
             state = action.data;
             return state;
         }
+        case type.RESET_MEDIA_DETAIL: {
+            state = action.data;
+            return state;
+        }
         default: {
             return state;
         }

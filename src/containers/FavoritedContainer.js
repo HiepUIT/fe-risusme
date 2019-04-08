@@ -93,8 +93,8 @@ const mapDispatchToProps = (dispatch) => {
         getCategoryDetailFavorited: (category, page) => {
             dispatch(getCategoryDetailFavorited(category, page));
         },
-        resetCategoryDetail: () => {
-            dispatch(resetCategoryDetail());
+        resetCategoryDetail: async () => {
+            await dispatch(resetCategoryDetail());
         }
     }
 }

@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getMedialDetail} from './../actions/actions';
+import {getMedialDetail, resetMediaDetail} from './../actions/actions';
 import MediaDetailComponent from './../components/MediaDetailComponent';
 import ListRelativeMediaContainer from './ListRelativeMediaContainer';
 
 class MediaDetailContainer extends React.Component {
 
     componentDidMount() {
+        this.props.resetMediaDetail();
         window.scrollTo(0, 0);
         let id = this.props.match.params.id;
         this.props.getMedialDetail(id);
@@ -16,7 +17,7 @@ class MediaDetailContainer extends React.Component {
         var {mediaDetail} = this.props;
         return (
             <div className="row row-margin">
-                <div className="col-lg-8 col-sm-12">
+                <div className="padding-5 col-lg-9 col-sm-12">
                     {mediaDetail.userInteraction !== undefined && <MediaDetailComponent
                         key={mediaDetail.id}
                         mediaId={mediaDetail.id}
@@ -29,7 +30,7 @@ class MediaDetailContainer extends React.Component {
                         author={mediaDetail.author}
                     />}
                 </div>
-                <div className="col-lg-4 col-sm-12">
+                <div className="padding-5 col-lg-3 col-sm-12">
                     <ListRelativeMediaContainer mediaId={this.props.match.params.id} categoryId={this.props.match.params.categoryId}/>
                 </div>
             </div>
@@ -47,6 +48,9 @@ const mapDispatchToProp = (dispatch) => {
     return {
         getMedialDetail: (id) => {
             dispatch(getMedialDetail(id));
+        },
+        resetMediaDetail: async () => {
+            await dispatch(resetMediaDetail());
         }
     }
 }

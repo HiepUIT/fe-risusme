@@ -39,6 +39,9 @@ var myReducer = (state = listRelativeMediaState, action) => {
             });
             return Object.assign({}, state, {isLoadMore: action.isLoadMore, data: arr, mediaId: action.mediaId});
         }
+        case type.RESET_RELATIVE_MEDIA: {
+            return Object.assign({}, state, {isLoadMore: false, data: action.data, mediaId: action.mediaId});
+        }
         default: {
             return state;
         }

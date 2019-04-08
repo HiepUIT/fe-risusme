@@ -61,8 +61,8 @@ export var getListCategory = () => {
 }
 
 export var resetCategoryDetail = () => {
-    return (dispatch) => {
-        dispatch({type: type.RESET_CATEGORY_DETAIL, data: {}});
+    return async (dispatch) => {
+        await dispatch({type: type.RESET_CATEGORY_DETAIL, data: {}});
     }
 }
  
@@ -76,7 +76,7 @@ export var getCategoryDetailHot = (category, page) => {
                 isLoadMore = false;
             dispatch({type: type.GET_CATEGORY_DETAIL_HOT, data: {typeCategory: type.GET_CATEGORY_DETAIL_HOT, isLoadMore: isLoadMore, data: res.data.data.data}});
         }).catch(err => {
-            dispatch({type: type.GET_CATEGORY_DETAIL_HOT, data: {typeCategory: type.GET_CATEGORY_DETAIL_HOT, isLoadMore: false, data: {}}});
+            dispatch({type: type.GET_CATEGORY_DETAIL_HOT, data: {typeCategory: type.GET_CATEGORY_DETAIL_HOT, isLoadMore: false, data: []}});
         })
     }
 }
@@ -138,6 +138,12 @@ export var getMedialDetail = (id) => {
     }
 }
 
+export var resetMediaDetail = () => {
+    return async (dispatch) => {
+        await dispatch({type: type.RESET_MEDIA_DETAIL, data: {}});
+    }
+}
+
 export var searchMedia = (title, page) => {
     let token = getToken();
     return (dispatch) => {
@@ -153,12 +159,12 @@ export var searchMedia = (title, page) => {
 
 export var loginAction = (auth, login) => {
     return async (dispatch) => {
-        if(auth != undefined) {
+        if(auth !== undefined) {
             let url = config.API_LOGIN;
             let provider = type.FACEBOOK;
             let code = auth.accessToken;
 
-            if(login == type.GOOGLE)
+            if(login === type.GOOGLE)
                 provider = type.GOOGLE;
             let data = {
                 codeType: 'accesstoken',
@@ -168,7 +174,7 @@ export var loginAction = (auth, login) => {
                 clientId: ''
             }
             await axios.post(url, data).then(res => {
-                if(res.data.err_code == 0) {
+                if(res.data.err_code === 0) {
                     let user = {
                         isAuth: true,
                         token: res.data.data.token,
@@ -235,7 +241,6 @@ export var favoriteAction = mediaId => {
 
 export var getListRelativeMedia = (typeRelativeMedia, category, page, mediaId) => {
     let url = '';
-    console.log('mediaId', mediaId);
     if(typeRelativeMedia === type.GET_RELATIVE_MEDIA_HOT)
         url = config.API_CATEGORY_DETAIL_HOT.replace('{CATEGORYID}', category).replace('{PAGE}', page);
     else if(typeRelativeMedia === type.GET_RELATIVE_MEDIA_NEW)
@@ -254,6 +259,12 @@ export var getListRelativeMedia = (typeRelativeMedia, category, page, mediaId) =
         }).catch(err => {
             dispatch({type: typeRelativeMedia, isLoadMore: false, data: [], mediaId});
         });
+    }
+}
+
+export var resetRelativeMedia = (mediaId) => {
+    return async (dispatch) => {
+        await dispatch({type: type.RESET_RELATIVE_MEDIA, data: {}, mediaId: mediaId});
     }
 }
 

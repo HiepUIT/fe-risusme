@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import * as config from './../configs/configs';
+import * as constant from './../constants/constants';
 import {getToken} from './../actions/actions';
 
 class ReportComponent extends React.Component {
@@ -39,16 +40,16 @@ class ReportComponent extends React.Component {
                     <Modal.Body style={{padding: '1rem'}}>
                         <div className="flex" onChange={this.changeValue}>
                             <div className="custom-control custom-radio mb-1">
-                                <input type="radio" id="rp1" className="custom-control-input" name="report" value="RP1"/>
-                                <label className="custom-control-label" htmlFor="rp1">xxxxxxx</label>
+                                <input type="radio" id="rp1" className="custom-control-input" name="report" value={constant.RP1}/>
+                                <label className="custom-control-label" htmlFor="rp1">{constant.RP1}</label>
                             </div>
                             <div className="custom-control custom-radio mb-1">
-                                <input type="radio" id="rp2" className="custom-control-input" name="report" value="RP2"/>
-                                <label className="custom-control-label" htmlFor="rp2">xxxxxxx</label>
+                                <input type="radio" id="rp2" className="custom-control-input" name="report" value={constant.RP2}/>
+                                <label className="custom-control-label" htmlFor="rp2">{constant.RP2}</label>
                             </div>
                             <div className="custom-control custom-radio mb-1">
-                                <input type="radio" id="rp3" className="custom-control-input" name="report" value="RP3"/>
-                                <label className="custom-control-label" htmlFor="rp3">xxxxxxx</label>
+                                <input type="radio" id="rp3" className="custom-control-input" name="report" value={constant.RP3}/>
+                                <label className="custom-control-label" htmlFor="rp3">{constant.RP3}</label>
                             </div>
                             <div className="custom-control custom-radio mb-1 text-center">
                                 <button onClick={this.doReport} type="button" className="mb-2 btn btn-sm btn-warning mr-1">Report</button>

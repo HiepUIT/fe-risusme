@@ -18,7 +18,6 @@ let pageNum = 1;
 class HotContainer extends React.Component {
     constructor(props) {
         super(props);
-        console.log('constructor');
         pageNum = 1;
     }
 
@@ -34,7 +33,6 @@ class HotContainer extends React.Component {
 
     render() {
         let {data} = this.props.categoryDetails;
-        console.log('data', data.length);
         let {isLoadMore} = this.props.categoryDetails;
         
         return (
@@ -95,8 +93,8 @@ const mapDispatchToProps = (dispatch) => {
         getCategoryDetailHot: (categoryId, page) => {
             dispatch(getCategoryDetailHot(categoryId, page))
         },
-        resetCategoryDetail: () => {
-            dispatch(resetCategoryDetail());
+        resetCategoryDetail: async () => {
+            await dispatch(resetCategoryDetail());
         }
     }
 }

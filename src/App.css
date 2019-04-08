@@ -207,11 +207,13 @@ button:focus {
   position: absolute;
   color: #fff;
   background-color: #000000;
-  font-size: 20px;
+  font-size: 13px;
   font-weight: bold;
   border-radius: 2px;
-  bottom: 98px;
-  right: 15px;
+  bottom: 0;
+  right: 0;
+  letter-spacing: .5px;
+  padding: 0 3px 0;
 }
 
 .main-content .header-navbar, .main-content>.main-navbar {
@@ -255,7 +257,7 @@ button:focus {
 }
 
 .r-height-200 {
-  height: 200px !important;
+  height: 130px !important;
 }
 
 .r-padding-left-right {
@@ -264,4 +266,12 @@ button:focus {
 
 .r-margin-left-50 {
   margin-left: 50px;
+}
+.padding-5 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.pos-relative {
+  position: relative;
 }

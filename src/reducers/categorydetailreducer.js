@@ -19,7 +19,6 @@ var myReducer = (state = categoryDetailState, action) => {
         }
         case type.GET_CATEGORY_DETAIL_FAVORITED: {
             let arr = [];
-            console.log(state.typeCategory + ' - ' + action.data.typeCategory);
             if(state.typeCategory === action.data.typeCategory)
                 arr = state.data;
             action.data.data.map(elm => {
@@ -33,7 +32,6 @@ var myReducer = (state = categoryDetailState, action) => {
         }
         case type.GET_CATEGORY_DETAIL_HOT: {
             let arr = [];
-            console.log(state.typeCategory + ' - ' + action.data.typeCategory);
             if(state.typeCategory === action.data.typeCategory)
                 arr = state.data;
             action.data.data.map(elm => {
@@ -43,7 +41,6 @@ var myReducer = (state = categoryDetailState, action) => {
         }
         case type.GET_CATEGORY_DETAIL_NEW: {
             let arr = [];
-            console.log(state.typeCategory + ' - ' + action.data.typeCategory);
             if(state.typeCategory === action.data.typeCategory)
                 arr = state.data;
             action.data.data.map(elm => {

@@ -16,7 +16,7 @@ class MenuContainer extends React.Component {
                     <a className="navbar-brand w-100 mr-0" href={configs.HOME_PAGE} style={{lineHeight: '35px'}}>
                     <div className="d-table m-auto">
                         <img id="main-logo" className="d-inline-block align-top mr-1" style={{maxWidth: '35px'}} src={logo} alt="Shards Dashboard" />
-                        <span className="d-none d-md-inline ml-1" style={{fontSize: '2rem'}}>Risusme</span>
+                        <span className="d-none d-md-inline ml-1" style={{fontSize: '2rem', color: 'black'}}>Risusme</span>
                     </div>
                     </a>
                     <a className="toggle-sidebar d-sm-inline d-md-none d-lg-none">

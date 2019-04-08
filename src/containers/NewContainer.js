@@ -91,8 +91,8 @@ const mapDispatchToProps = (dispatch) => {
         getCategoryDetailNew: (category, page) => {
             dispatch(getCategoryDetailNew(category, page));
         },
-        resetCategoryDetail: () => {
-            dispatch(resetCategoryDetail());
+        resetCategoryDetail: async () => {
+            await dispatch(resetCategoryDetail());
         }
     }
 }

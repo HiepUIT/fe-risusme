@@ -5,6 +5,7 @@ import CategoryDetailComponent from '../components/CategoryDetailComponent';
 import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
 import {css} from '@emotion/core';
+import ListMediaContentLoaderComponent from './../components/ListMediaContentLoaderComponent';
 
 const override = css`
     display: block;
@@ -45,6 +46,7 @@ class CategoryDetailContainer extends React.Component {
             <div className="main-content-container container-fluid px-4">
                 <div className="col-12 col-sm-4 text-center text-sm-left mb-0">
                     Animal container
+                    {/* <ListMediaContentLoaderComponent/> */}
                 </div>
                 {data.length > 0 && <InfiniteScroll
                     key={this.props.match.params.id}
@@ -62,6 +64,7 @@ class CategoryDetailContainer extends React.Component {
                         </div> 
                     }>
                     <div className="row">
+                        <ListMediaContentLoaderComponent/>
                     {
                         data.map((elm, index) => {
                             return (
@@ -99,8 +102,8 @@ const mapDispatchToProps = (dispatch) => {
         getCategoryDetail: (categoryId, page) => {
             dispatch(getCategoryDetail(categoryId, page));
         },
-        resetCategoryDetail: () => {
-            dispatch(resetCategoryDetail());
+        resetCategoryDetail: async () => {
+            await dispatch(resetCategoryDetail());
         }
     }
 }
