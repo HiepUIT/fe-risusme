@@ -99,9 +99,9 @@ class LikeDislikeComponent extends React.Component {
         return (
             <div className="text-right">
                 <img alt="" className="r-detail-img-icon" onClick={this.likeAction} src={this.state.like.icon}/>
-                <span className="r-detail-padding-10">{data.interactions != undefined && this.state.like.likeInteraction}</span>
+                <span className="r-detail-padding-10">{data.interactions !== undefined && this.state.like.likeInteraction}</span>
                 <img alt="" className="r-detail-img-icon" onClick={this.dislikeAction} src={this.state.dislike.icon}/> 
-                <span className="r-detail-padding-10-r0">{data.interactions != undefined && this.state.dislike.dislikeInteraction}</span>
+                <span className="r-detail-padding-10-r0">{data.interactions !== undefined && this.state.dislike.dislikeInteraction}</span>
             </div>
         );
     }

@@ -3,19 +3,9 @@ import LikeDislikeComponent from './../components/LikeDislikeComponent';
 import ShareComponent from './../components/ShareComponent';
 import FavoriteComponent from './FavoriteComponent';
 import ListCommentComponent from './ListCommentComponent';
-import "./../../node_modules/video-react/dist/video-react.css";
 import {checkAuth, getAuth, commentAction, getListComment} from './../actions/actions';
-import {
-  Player,
-  ControlBar,
-  ReplayControl,
-  ForwardControl,
-  PlaybackRateMenuButton,
-  VolumeMenuButton,
-  PlayToggle,
-  BigPlayButton,
-  LoadingSpinner
-} from 'video-react';
+import { DefaultPlayer as Video } from 'react-html5video';
+import './../../node_modules/react-html5video/dist/styles.css';
 import {connect} from 'react-redux';
 import * as type from './../constants/constants';
 import ReportComponent from './ReportComponent';
@@ -73,24 +63,12 @@ class MediaDetailComponent extends React.Component {
         return (
             <React.Fragment>
                 <div className="card card-small card-post">
-                    <Player ref="player"
-                        fluid={false}
-                        width="100%"
-                        height={497}
-                        playsInline
-                        autoPlay
-                        poster={data.image}>
+                    <Video autoPlay
+                        controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
+                        poster={data.image}
+                    >
                         <source src={data.url} />
-                        <LoadingSpinner/>
-                        <BigPlayButton position="center"/>
-                        <ControlBar>
-                            {/* <ReplayControl seconds={10} order={1.1} /> */}
-                            {/* <ForwardControl seconds={10} order={1.2} /> */}
-                            {/* <PlaybackRateMenuButton rates={[2, 1.5, 1, 0.5, 0.1]} order={7.1} /> */}
-                            <VolumeMenuButton />
-                            <PlayToggle />
-                        </ControlBar>
-                    </Player>
+                    </Video>
                 </div>
                 <p className=" r-media-title-large">
                     {data.title}

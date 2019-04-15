@@ -7,7 +7,7 @@ class LisCategoryComponent extends React.Component {
         let linkTo = '/category/' + this.props.id;
         return (
             <li className="nav-item">
-                <Link className="nav-link" to={linkTo}>
+                <Link className="no-border menu-link-item nav-link" to={linkTo}>
                     <img alt="" className="img-icon" src={this.props.imgUrl}/>
                     <span className="menu-text">{this.props.name}</span>
                 </Link>

@@ -12,7 +12,7 @@ class MenuContainer extends React.Component {
         return (
             <aside className="main-sidebar col-12 col-md-3 col-lg-2 px-0">
                 <div className="main-navbar">
-                <nav className="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+                <nav className="navbar align-items-stretch navbar-light bg-white flex-md-nowrap p-0">
                     <a className="navbar-brand w-100 mr-0" href={configs.HOME_PAGE} style={{lineHeight: '35px'}}>
                     <div className="d-table m-auto">
                         <img id="main-logo" className="d-inline-block align-top mr-1" style={{maxWidth: '35px'}} src={logo} alt="Shards Dashboard" />
@@ -35,22 +35,27 @@ class MenuContainer extends React.Component {
                     </div>
                 </form>
                 <div className="nav-wrapper">
+                    <ul className="nav flex-column">
+                        <li className="nav-item">
+                            <a className="menu-link-item nav-link" href=""><i className="fa fa-3x fa-home"></i>Home</a>
+                        </li>
+                    </ul>
                     <p className="category-style">POPULAR</p>
                     <ul className="nav flex-column">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">
+                            <Link className="no-border menu-link-item nav-link" to="/">
                                 <img alt="" className="img-icon" src={hot}/>
                                 <span className="menu-text">Hot</span>
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/new">
+                            <Link className="no-border menu-link-item nav-link" to="/new">
                                 <img alt="" className="img-icon" src={news}/>
                                 <span className="menu-text">New</span>
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/fresh">
+                            <Link className="menu-link-item nav-link" to="/fresh">
                                 <img alt="" className="img-icon" src={fresh}/>
                                 <span className="menu-text">Fresh</span>
                             </Link>

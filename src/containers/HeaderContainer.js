@@ -11,6 +11,7 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import * as config from './../configs/configs';
 import * as constants from './../constants/constants';
+import ReactAutocomplete from 'react-autocomplete';
 
 const CustomNavLink = ({label, to, activeOnlyWhenExact, showHide, icon}) => {
     return (
@@ -33,10 +34,15 @@ class HeaderContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        let storageSuggestSearch = localStorage.getItem('suggestSearch');
+        if(storageSuggestSearch === null)
+            storageSuggestSearch = [];
+
         this.state = {
             isShowModal: false,
             searchValue: '',
             redirectToSearch: false,
+            suggestSearch: storageSuggestSearch
         }
     }
 
@@ -46,9 +52,29 @@ class HeaderContainer extends React.Component {
 
     doSearchMedia = (e) => {
         if(e.which === 13){
-           this.setState({redirectToSearch: true});
-           this.props.searchMedia(this.state.searchValue, 1);
+            this.processSearch();
         }
+    }
+
+    processSearch = (val) => {
+        let suggestSearch = localStorage.getItem('suggestSearch');
+        if(suggestSearch === null)
+            suggestSearch = [];
+        else
+            suggestSearch = suggestSearch.split(',');
+        let newValue = suggestSearch.filter((elm) => elm !== this.state.searchValue.trim());
+        newValue.push(this.state.searchValue.trim());
+        localStorage.setItem('suggestSearch', newValue);
+        this.setState({
+            redirectToSearch: true,
+            suggestSearch: newValue
+        });
+        let valSearch = this.state.searchValue;
+        if(val !== undefined) {
+            this.setState({searchValue: val});
+            valSearch = val;
+        }
+        this.props.searchMedia(valSearch.trim(), 1);
     }
 
     responseFacebook = (res) => {
@@ -83,71 +109,60 @@ class HeaderContainer extends React.Component {
             this.setState({redirectToSearch: false});
             return <Redirect to="/search"/>
         }
+
+        let itemsSearchSuggest = [];
+        if(this.state.suggestSearch !== undefined) {
+            this.state.suggestSearch.toString().split(',').map(elm => {
+                itemsSearchSuggest.push({label: elm});
+            });
+        }
+        
         return (
             <div className="main-navbar sticky-top bg-white">
                 <nav className="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
                     <div className="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
                         <div className="input-group input-group-seamless ml-3">
                             <div className="input-group-prepend">
-                            <div className="input-group-text">
-                                <i className="fas fa-search" />
+                                <div className="input-group-text">
+                                    <i className="fas fa-search" />
+                                </div>
                             </div>
-                            </div>
-                            <input className="navbar-search form-control" 
+                            <ReactAutocomplete
+                                wrapperStyle={
+                                    {display: 'inline-block', width: '100%', position: 'relative', margin: 'auto 25px'}
+                                }
+                                items={itemsSearchSuggest}
+                                getItemValue={item => item.label}
+                                renderItem={ (item, highlighted) => 
+                                    <div className="autocomplete" style={{ backgroundColor: highlighted ? '#eee' : 'transparent'}}>
+                                        {item.label}
+                                    </div>
+                                }
                                 value={this.state.searchValue}
-                                onChange={this.updateSearchValue} 
-                                onKeyPress={this.doSearchMedia}
-                                type="text" placeholder="Search for something..." aria-label="Search" /> 
+                                onSelect={val => this.processSearch(val)}
+                                renderInput={ (props) =>
+                                    <input {...props} className="navbar-search form-control" 
+                                        value={this.state.searchValue}
+                                        onChange={this.updateSearchValue} 
+                                        onKeyPress={this.doSearchMedia}
+                                        type="text" placeholder="Search for something..." aria-label="Search"/>
+                                }
+                            />
                         </div>
                     </div>
                     <ul className="navbar-nav border-left flex-row ">
-                    {/* <li className="nav-item border-right dropdown notifications">
-                        <a className="nav-link nav-link-icon text-center"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div className="nav-link-icon__wrapper">
-                            <i className="material-icons">&#xE7F4;</i>
-                            <span className="badge badge-pill badge-danger">2</span>
-                        </div>
-                        </a>
-                        <div className="dropdown-menu dropdown-menu-small" aria-labelledby="dropdownMenuLink">
-                        <a className="dropdown-item" href="/#">
-                            <div className="notification__icon-wrapper">
-                            <div className="notification__icon">
-                                <i className="material-icons">&#xE6E1;</i>
+                        <li className="nav-item dropdown cursor">
+                            <a className="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">
+                                <img alt="" className="user-avatar rounded-circle mr-2" src={authAvatar} alt="User Avatar" />
+                                <span className="d-none d-md-inline-block">{authName}</span>
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-small">
+                                <CustomNavLink label="Setting" to="/settings" activeOnlyWhenExact={false} showHide={isAuth} icon="material-icons"/>
+                                <div className="dropdown-divider" />
+                                <a className="dropdown-item text-danger cursor" onClick={() => this.setState({isShowModal: true})}>
+                                    <i className="material-icons text-danger">&#xE879;</i> Login </a>
                             </div>
-                            </div>
-                            <div className="notification__content">
-                            <span className="notification__category">Analytics</span>
-                            <p>Your website’s active users count increased by
-                                <span className="text-success text-semibold">28%</span> in the last week. Great job!</p>
-                            </div>
-                        </a>
-                        <a className="dropdown-item" >
-                            <div className="notification__icon-wrapper">
-                            <div className="notification__icon">
-                                <i className="material-icons">&#xE8D1;</i>
-                            </div>
-                            </div>
-                            <div className="notification__content">
-                            <span className="notification__category">Sales</span>
-                            <p>Last week your store’s sales count decreased by
-                                <span className="text-danger text-semibold">5.52%</span>. It could have been worse!</p>
-                            </div>
-                        </a>
-                        <a className="dropdown-item notification__all text-center" > View all Notifications </a>
-                        </div>
-                    </li> */}
-                    <li className="nav-item dropdown cursor">
-                        <a className="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">
-                            <img alt="" className="user-avatar rounded-circle mr-2" src={authAvatar} alt="User Avatar" />
-                            <span className="d-none d-md-inline-block">{authName}</span>
-                        </a>
-                        <div className="dropdown-menu dropdown-menu-small">
-                            <CustomNavLink label="Setting" to="/settings" activeOnlyWhenExact={false} showHide={isAuth} icon="material-icons"/>
-                            <div className="dropdown-divider" />
-                            <a className="dropdown-item text-danger cursor" onClick={() => this.setState({isShowModal: true})}>
-                                <i className="material-icons text-danger">&#xE879;</i> Login </a>
-                        </div>
-                    </li>
+                        </li>
                     </ul>
                     <nav className="nav">
                         <a  className="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
@@ -155,7 +170,7 @@ class HeaderContainer extends React.Component {
                         </a>
                     </nav>
                 </nav>
-                <Modal show={this.state.isShowModal} onHide={() => this.setState({isShowModal: false})}>
+                <Modal show={this.state.isShowModal} onHide={() => this.setState({isShowModal: false})} backdrop={true}>
                     <Modal.Body>
                         <div className="row">
                             <img alt="" className="img-logo-login" src={logo}/>
@@ -187,7 +202,7 @@ class HeaderContainer extends React.Component {
                             >
                             </GoogleLogin>
                         </div>
-                        <div className="card-header border-top">
+                        {/* <div className="card-header border-top">
                             <h6 className="m-0 text-center" style={{paddingTop: '10px'}}>Login with your email address</h6>
                         </div>
                         <div className="d-flex flex-column">
@@ -209,7 +224,7 @@ class HeaderContainer extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </Modal.Body>
                 </Modal>
             </div>

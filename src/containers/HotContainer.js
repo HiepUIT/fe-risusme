@@ -7,6 +7,11 @@ import CategoryDetailComponent from './../components/CategoryDetailComponent';
 import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
 import {css} from '@emotion/core';
+import Carousel from 'react-bootstrap/Carousel';
+import slider1 from './../images/slider/001.jpg';
+import slider2 from './../images/slider/002.jpg';
+import slider3 from './../images/slider/003.jpg';
+import CategoryDetailContentLoaderComponent from './../components/CategoryDetailContentLoaderComponent';
 
 const override = css`
     display: block;
@@ -19,6 +24,17 @@ class HotContainer extends React.Component {
     constructor(props) {
         super(props);
         pageNum = 1;
+        this.state = {
+            index: 0,
+            direction: null
+        }
+    }
+
+    handleSelect = (selectedIndex, e) => {
+        this.setState({
+            index: selectedIndex,
+            direction: e.direction,
+        });
     }
 
     componentDidMount() {
@@ -31,15 +47,68 @@ class HotContainer extends React.Component {
         this.props.getCategoryDetailHot(config.CATEGORYID_HOT, ++pageNum);
     }
 
+    loadBanner = (index, direction) => {
+        return (
+            <Carousel
+                activeIndex={index}
+                direction={direction}
+                onSelect={this.handleSelect}
+            >
+                <Carousel.Item>
+                    <img
+                        className="h-slider w-100"
+                        src={slider1}
+                        alt="First slide"
+                    />
+                    <Carousel.Caption>
+                        <h3>First slide label</h3>
+                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                        className="h-slider w-100"
+                        src={slider2}
+                        alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                        <h3>Second slide label</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                        className="h-slider w-100"
+                        src={slider3}
+                        alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                        <h3>Third slide label</h3>
+                        <p>
+                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                        </p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+            </Carousel>
+        );
+    }
+
     render() {
         let {data} = this.props.categoryDetails;
         let {isLoadMore} = this.props.categoryDetails;
+        const { index, direction } = this.state;
+        if(data === undefined || data.length == 0) {
+            return <CategoryDetailContentLoaderComponent banner={this.loadBanner(index, direction)}/>
+        }
         
         return (
             <div className="main-content-container container-fluid px-4">
-                <div className="col-12 col-sm-4 text-center text-sm-left mb-0">
-                    Hot container
+                <div className="row mb-4 banner-slider-ads">
+                    {this.loadBanner(index, direction)}
                 </div>
+                <div className="row">&nbsp;</div>
                 {data.length > 0 && <InfiniteScroll
                     key={data.length}
                     pageStart={1}

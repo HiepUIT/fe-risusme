@@ -62,7 +62,7 @@ export var getListCategory = () => {
 
 export var resetCategoryDetail = () => {
     return async (dispatch) => {
-        await dispatch({type: type.RESET_CATEGORY_DETAIL, data: {}});
+        await dispatch({type: type.RESET_CATEGORY_DETAIL, data: []});
     }
 }
  
