@@ -91,7 +91,7 @@ class NewContainer extends React.Component {
         let data = this.props.categoryDetails.data;
         let isLoadMore = this.props.categoryDetails.isLoadMore;
         const { index, direction } = this.state;
-        if(data === undefined || data.length == 0) {
+        if(data === undefined || data.length === 0) {
             return <CategoryDetailContentLoaderComponent banner={this.loadBanner(index, direction)}/>
         }
 

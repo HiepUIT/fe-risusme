@@ -34,10 +34,9 @@ class ListRelativeMediaContainer extends React.Component {
                     <div className="card-body p-0 d-flex">
                         <div className="d-flex flex-column m-auto">
                             <div className="stats-small__data text-center" >
-                                Ads
+                                {this.props.banner}
                             </div>
                         </div>
-                        <canvas height="120" className="blog-overview-stats-small-1"></canvas>
                     </div>
                 </div>
                 {

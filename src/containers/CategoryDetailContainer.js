@@ -47,6 +47,13 @@ class CategoryDetailContainer extends React.Component {
         this.props.getCategoryDetail(categoryId, ++pageNum);
     }
 
+    handleSelect = (selectedIndex, e) => {
+        this.setState({
+            index: selectedIndex,
+            direction: e.direction,
+        });
+    }
+
     loadBanner = (index, direction) => {
         return (
             <Carousel

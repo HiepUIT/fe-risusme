@@ -108,7 +108,6 @@ class HotContainer extends React.Component {
                 <div className="row mb-4 banner-slider-ads">
                     {this.loadBanner(index, direction)}
                 </div>
-                <div className="row">&nbsp;</div>
                 {data.length > 0 && <InfiniteScroll
                     key={data.length}
                     pageStart={1}
