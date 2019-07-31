@@ -1,18 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getCategoryDetailHot, resetCategoryDetail} from './../actions/actions';
-import * as config from './../configs/configs';
-import * as constants from './../constants/constants';
-import CategoryDetailComponent from './../components/CategoryDetailComponent';
-import InfiniteScroll from 'react-infinite-scroller';
-import { ClipLoader } from 'react-spinners';
+import {getCategoryDetailFollowed, resetCategoryDetail, checkAuth} from './../actions/actions';
 import {css} from '@emotion/core';
 import Carousel from 'react-bootstrap/Carousel';
 import slider1 from './../images/slider/001.jpg';
 import slider2 from './../images/slider/002.jpg';
 import slider3 from './../images/slider/003.jpg';
 import CategoryDetailContentLoaderComponent from './../components/CategoryDetailContentLoaderComponent';
-import CustomNavLink from './../components/CustomNavLink';
+import * as config from './../configs/configs';
+import * as constants from './../constants/constants';
+import CategoryDetailComponent from './../components/CategoryDetailComponent';
+import InfiniteScroll from 'react-infinite-scroller';
+import { ClipLoader } from 'react-spinners';
+import PopupNotificationLogin from './../components/PopupNotificationLogin';
 
 const override = css`
     display: block;
@@ -20,13 +20,14 @@ const override = css`
     border-color: red;
 `;
 
-
 let pageNum = 1;
-class HotContainer extends React.Component {
+class FollowContainer extends React.Component {
     constructor(props) {
         super(props);
-        pageNum = 1;
+        let isAuth = checkAuth();
         this.state = {
+            isAuth,
+            showModal: false,
             index: 0,
             direction: null
         }
@@ -38,21 +39,24 @@ class HotContainer extends React.Component {
             direction: e.direction,
         });
     }
-
     componentDidMount() {
+        if(!this.state.isAuth) {
+            this.setState({showModal: true});
+            return;
+        }
         this.props.resetCategoryDetail();
         window.scrollTo(0, 0);
-        let id = config.CATEGORYID_HOT;
+        let id = config.CATEGORYID_FOLLOW;
         if(this.props.match.params.id !== undefined)
             id = this.props.match.params.id;
-        this.props.getCategoryDetailHot(id, 1);
+        this.props.getCategoryDetailFollowed(id, 1);
     }
 
     loadFunc = () => {
-        let id = config.CATEGORYID_HOT;
+        let id = config.CATEGORYID_FOLLOW;
         if(this.props.match.params.id !== undefined)
             id = this.props.match.params.id;
-        this.props.getCategoryDetailHot(id, ++pageNum);
+        this.props.getCategoryDetailFollowed(id, ++pageNum);
     }
 
     loadBanner = (index, direction) => {
@@ -107,31 +111,15 @@ class HotContainer extends React.Component {
         let {data} = this.props.categoryDetails;
         let {isLoadMore} = this.props.categoryDetails;
         const { index, direction } = this.state;
-        if(data === undefined || data.length === 0) {
-            return <CategoryDetailContentLoaderComponent banner={this.loadBanner(index, direction)}/>
-        }
-        
+        // if(data === undefined || data.length === 0) {
+        //     return <CategoryDetailContentLoaderComponent banner={this.loadBanner(index, direction)}/>
+        // }
+
         return (
             <div className="main-content-container container-fluid px-4">
                 <div className="row banner-slider-ads">
                     {this.loadBanner(index, direction)}
                 </div>
-                {
-                    this.props.match.params.id !== '0' &&
-                        <div className="row">
-                            <ul className="nav nav-tabs nav-justified nav-menu">
-                                <li className="nav-item">
-                                    <CustomNavLink label="Hot" to={'/hot/' + this.props.match.params.id} classNe="nav-link nav-menu-text" activeOnlyWhenExact={false} icon=""/>
-                                </li>
-                                <li className="nav-item">
-                                    <CustomNavLink label="New" to={'/new/' + this.props.match.params.id} classNe="nav-link nav-menu-text" activeOnlyWhenExact={false} icon=""/>
-                                </li>
-                                <li className="nav-item">
-                                    <CustomNavLink label="Follow" to="/c" classNe="nav-link nav-menu-text" activeOnlyWhenExact={false} icon=""/>
-                                </li>
-                            </ul>
-                        </div>
-                }
                 {data.length > 0 && <InfiniteScroll
                     key={data.length}
                     pageStart={1}
@@ -169,6 +157,7 @@ class HotContainer extends React.Component {
                     </div>
                 </InfiniteScroll>
                 }
+                <PopupNotificationLogin showModal={this.state.showModal}/>
             </div>
         );
     }
@@ -182,8 +171,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCategoryDetailHot: (categoryId, page) => {
-            dispatch(getCategoryDetailHot(categoryId, page))
+        getCategoryDetailFollowed: (categoryId, page) => {
+            dispatch(getCategoryDetailFollowed(categoryId, page))
         },
         resetCategoryDetail: async () => {
             await dispatch(resetCategoryDetail());
@@ -191,4 +180,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (HotContainer);
+export default connect(mapStateToProps, mapDispatchToProps) (FollowContainer)

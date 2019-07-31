@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import ListCategoryContainer from './../containers/ListCategoryContainer';
 import logo from './../images/logo.jpg';
 import hot from './../images/hot.jpg';
-import news from './../images/new.jpg';
-import fresh from './../images/fresh.jpg';
+import follow from './../images/follow.png';
+import home from './../images/home.png'
 
 class MenuContainer extends React.Component {
     render() {
@@ -37,27 +37,21 @@ class MenuContainer extends React.Component {
                 <div className="nav-wrapper">
                     <ul className="nav flex-column">
                         <li className="nav-item">
-                            <a className="menu-link-item nav-link" href=""><i className="fa fa-3x fa-home"></i>Home</a>
-                        </li>
-                    </ul>
-                    <p className="category-style">POPULAR</p>
-                    <ul className="nav flex-column">
-                        <li className="nav-item">
                             <Link className="no-border menu-link-item nav-link" to="/">
+                                <img alt="" className="img-icon" src={home}/>
+                                <span className="menu-text">Home</span>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="no-border menu-link-item nav-link" to="/hot/0">
                                 <img alt="" className="img-icon" src={hot}/>
                                 <span className="menu-text">Hot</span>
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="no-border menu-link-item nav-link" to="/new">
-                                <img alt="" className="img-icon" src={news}/>
-                                <span className="menu-text">New</span>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="menu-link-item nav-link" to="/fresh">
-                                <img alt="" className="img-icon" src={fresh}/>
-                                <span className="menu-text">Fresh</span>
+                            <Link className="menu-link-item nav-link" to="/follow/0">
+                                <img alt="" className="img-icon" src={follow}/>
+                                <span className="menu-text">Following</span>
                             </Link>
                         </li>
                     </ul>

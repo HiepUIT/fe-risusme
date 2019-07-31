@@ -6,7 +6,7 @@ class ShareComponent extends React.Component {
     render() {
         return (
             <div className="text-right">
-                <img alt="" className="r-margin-50 r-detail-img-icon" src={share}/>
+                <img alt="" className="r-detail-img-icon" src={share}/>
             </div>
         )
     }

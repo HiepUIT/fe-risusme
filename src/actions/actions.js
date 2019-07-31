@@ -40,7 +40,7 @@ export var getCategoryDetail = (category, page) => {
         let url = config.API_CATEGORY_DETAIL.replace('{CATEGORYID}', category).replace('{PAGE}', page);
         axios.get(url, {headers: {'Authorization': token}}).then(res => {
             let isLoadMore = true;
-            if(res.data.data.data.length === 0)
+            if(res.data.data.current_page === res.data.data.last_page)
                 isLoadMore = false;
             dispatch({type: type.GET_CATEGORY_DETAIL, data: {typeCategory: category, isLoadMore: isLoadMore, data: res.data.data.data}});
         }).catch(err => {
@@ -72,7 +72,7 @@ export var getCategoryDetailHot = (category, page) => {
         let url = config.API_CATEGORY_DETAIL_HOT.replace('{CATEGORYID}', category).replace('{PAGE}', page);
         axios.get(url, {headers: {'Authorization': token}}).then(res => {
             let isLoadMore = true;
-            if(res.data.data.data.length === 0)
+            if(res.data.data.current_page === res.data.data.last_page)
                 isLoadMore = false;
             dispatch({type: type.GET_CATEGORY_DETAIL_HOT, data: {typeCategory: type.GET_CATEGORY_DETAIL_HOT, isLoadMore: isLoadMore, data: res.data.data.data}});
         }).catch(err => {
@@ -99,7 +99,7 @@ export var getCategoryDetailNew = (category, page) => {
         let url = config.API_CATEGORY_DETAIL_NEW.replace('{CATEGORYID}', category).replace('{PAGE}', page);
         axios.get(url, {headers: {'Authorization': token}}).then(res => {
             let isLoadMore = true;
-            if(res.data.data.data.length === 0)
+            if(res.data.data.current_page === res.data.data.last_page)
                 isLoadMore = false;
             dispatch({type: type.GET_CATEGORY_DETAIL_NEW, data: {typeCategory: type.GET_CATEGORY_DETAIL_NEW, isLoadMore: isLoadMore, data: res.data.data.data}});
         }).catch(err => {
@@ -295,9 +295,10 @@ export var getListComment = (mediaId, page) => {
     let token = getToken();
     return (dispatch) => {
         axios.get(url, {headers: {'Authorization': token}}).then(res => {
-            dispatch({type: type.GET_LIST_COMMENT_ACTION, data: res.data.data});
+            dispatch({type: type.GET_LIST_COMMENT_ACTION, data: {mediaId, data: res.data.data}});
         }).catch(err => {
-            dispatch({type: type.GET_LIST_COMMENT_ACTION, data: []});
+            console.log('err', err);
+            dispatch({type: type.GET_LIST_COMMENT_ACTION, data: {}});
         })
     }
 }

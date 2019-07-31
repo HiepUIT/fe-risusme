@@ -11,6 +11,8 @@ import MediaDetailContainer from './containers/MediaDetailContainer';
 import UserProfileContainer from './containers/UserProfileContainer';
 import { connect } from 'react-redux';
 import SearchMediaContainer from './containers/SearchMediaContainer';
+import FooterContainer from './containers/FooterContainer';
+import FollowContainer from './containers/FollowContainer';
 
 class App extends Component {
 
@@ -25,9 +27,10 @@ class App extends Component {
             <HeaderContainer ref={this.child}/>
             <Switch>
               <Route path="/settings" component={UserProfileContainer}/>
-              <Route exact path="/" component={HotContainer}/>
-              <Route path="/new" component={NewContainer}/>
-              <Route path="/fresh" component={FavoritedContainer}/>
+              <Route exact path="/" component={NewContainer}/>
+              <Route path="/hot/:id" component={HotContainer}/>
+              <Route path="/follow/:id" component={FollowContainer}/>
+              {/* <Route path="/new/:id" component={NewContainer}/> */}
               {
                 listCategory.map((elm, index) => {
                   let path = '/category/:id';
@@ -39,6 +42,7 @@ class App extends Component {
               <Route path="/media/:categoryId/:id" component={MediaDetailContainer}/>
               <Route path="/search" component={(props) => <SearchMediaContainer dataSearch={dataSearch}/>}/>
             </Switch>
+            <FooterContainer/>
           </main>
         </React.Fragment>
       </BrowserRouter>

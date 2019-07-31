@@ -11,10 +11,10 @@ class CommmentComponent extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="r-v1-content-box">
                 <img alt="" onClick={this.showDetail} className="r-detail-img-icon" src={cmt}/>
-                <span className="r-detail-padding-10" style={{paddingRight: "10px"}}>{this.props.commented !== undefined && this.props.commented}</span>
-            </React.Fragment>
+                <span className="r-v1-text-detail">{this.props.commented !== undefined && this.props.commented}</span>
+            </div>
         );
     }
 }

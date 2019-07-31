@@ -54,13 +54,14 @@
   color: black;
   font-weight: bold;
   margin: 8px 0 8px;
-  display: -webkit-box;
   height: 2.2rem;
+  /* autoprefixer: off */
   -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: normal;
-  -webkit-line-clamp: 2;
 }
 
 .r-media-title-large {
@@ -162,9 +163,8 @@ div.r-cmt-content {
   justify-content: flex-end;
 }
 
-.r-detail-padding-10 {
-  padding-left: 10px;
-  padding-right: 50px;
+.r-v1-text-detail {
+  margin-left: 10px;
 }
 
 .r-detail-padding-10-r0 {
@@ -262,7 +262,7 @@ button:focus {
 }
 
 .r-height-200 {
-  height: 130px !important;
+  height: 94px !important;
 }
 
 .r-padding-left-right {
@@ -322,4 +322,99 @@ svg {
 
 .rh5v-Overlay_icon {
   margin-left: -30px !important;
+}
+
+.nav-menu {
+  width: 100%;
+  margin: 0px 5px 10px;
+}
+
+.nav-menu-text {
+  font-size: 20px;
+  border-radius: 0 !important;
+}
+
+.nav-tabs .nav-link.active {
+  border-bottom: 3px solid;
+}
+
+.home-auth-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+body {
+  background: #fff !important;
+  color: #000000 !important;
+}
+
+.main-sidebar .nav-wrapper {
+  background: #f5f6f8;
+}
+
+.home-auth-name {
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.home-img-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.pl-4, .px-4 {
+  padding-left: 2.5rem !important;
+  padding-right: 2.5rem !important;
+}
+.r-v1-content-box {
+  display: inline-block;
+  width: 100%;
+}
+.like-box {
+  display: inline-block;
+  width: 50%;
+}
+.dislike-box {
+  display: inline-block;
+  width: 50%;
+}
+.container-fluid {
+  padding-left: 0px;
+}
+.main-sidebar .nav .nav-item .nav-link {
+  color: #000000;
+}
+.main-sidebar .nav .nav-item .nav-link.active, .main-sidebar .nav .nav-item .nav-link:hover, .main-sidebar .nav .nav-item.active, .main-sidebar .nav .nav-item:hover {
+  color: #ffb400;
+}
+.main-sidebar .nav .nav-item .nav-link.active i, .main-sidebar .nav .nav-item .nav-link:hover i, .main-sidebar .nav .nav-item.active i, .main-sidebar .nav .nav-item:hover i {
+  color: #ffb400;
+}
+.nav-wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+.nav-wrapper:hover::-webkit-scrollbar-thumb { 
+  background: #bbb; 
+  border-radius: 5px;
+}
+.cursor.stats-small--1.r-relative-media-box {
+  width: 100%;
+}
+
+a {
+  color: #0b0b0b;
+}
+
+a:hover {
+  color: #ffb400;
+  text-decoration: none;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  background-color: #292c2f;
+  width: 100%;
+  height: 60px;
 }

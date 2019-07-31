@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import {Route, Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {searchMedia, loginAction} from './../actions/actions';
-import avatar from './../images/0.jpg';
+import avatar from './../images/user.png';
 import logo from './../images/logo.jpg';
 import facebook from './../images/facebook.png';
 import google from './../images/google.png';
@@ -202,29 +202,6 @@ class HeaderContainer extends React.Component {
                             >
                             </GoogleLogin>
                         </div>
-                        {/* <div className="card-header border-top">
-                            <h6 className="m-0 text-center" style={{paddingTop: '10px'}}>Login with your email address</h6>
-                        </div>
-                        <div className="d-flex flex-column">
-                            <div className="form-group">
-                                <input className="form-control" type="email" placeholder="Email"/>
-                            </div>
-                            <div className="form-group">
-                                <input className="form-control" type="password" placeholder="Password"/>
-                            </div>
-                            <div className="row">
-                                <div className="col-sm-4">
-                                    <div className="form-group">
-                                        <button type="button" className="mb-2 btn btn-warning mr-2">Login</button>
-                                    </div>
-                                </div>
-                                <div className="col-sm-8">
-                                    <div className="form-group">
-                                        <strong className="text-muted d-block mb-2 text-right">Forgot password</strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
                     </Modal.Body>
                 </Modal>
             </div>

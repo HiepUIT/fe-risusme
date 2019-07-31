@@ -33,7 +33,7 @@ class ReportComponent extends React.Component {
     render() {
         return (
             <React.Fragment>
-            <div className="r-margin-left-50 text-right">
+            <div className="text-right">
                 <i className="fa fa-bars cursor" aria-hidden="true" onClick={() => this.setState({isShowModal: true})}></i>
             </div>
             <Modal show={this.state.isShowModal} onHide={() => this.setState({isShowModal: false})}>

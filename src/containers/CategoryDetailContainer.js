@@ -10,12 +10,15 @@ import Carousel from 'react-bootstrap/Carousel';
 import slider1 from './../images/slider/001.jpg';
 import slider2 from './../images/slider/002.jpg';
 import slider3 from './../images/slider/003.jpg';
+import CustomNavLink from './../components/CustomNavLink';
 
 const override = css`
     display: block;
     margin: 0 auto;
     border-color: red;
 `;
+
+
 let pageNum = 1;
 class CategoryDetailContainer extends React.Component {
     constructor(props) {
@@ -34,8 +37,10 @@ class CategoryDetailContainer extends React.Component {
     }
 
     componentDidUpdate(preProps) {
-        if(preProps.match.params.id === this.props.match.params.id)
+        if(preProps.match.params.id === this.props.match.params.id) {
             return;
+        }
+        pageNum = 1;
         this.props.resetCategoryDetail();
         window.scrollTo(0, 0);
         let categoryId = this.props.match.params.id;
@@ -105,13 +110,27 @@ class CategoryDetailContainer extends React.Component {
     render () {
         let {data, isLoadMore} = this.props.categoryDetails;
         const { index, direction } = this.state;
-        if(data === undefined || data.length == 0) {
+        const categoryId = this.props.categoryDetails.typeCategory;
+        if(data === undefined || data.length === 0) {
             return <CategoryDetailContentLoaderComponent banner={this.loadBanner(index, direction)}/>
         }
         return (
             <div className="main-content-container container-fluid px-4">
-                <div className="row mb-4 banner-slider-ads">
+                <div className="row banner-slider-ads">
                     {this.loadBanner(index, direction)}
+                </div>
+                <div className="row">
+                    <ul className="nav nav-tabs nav-justified nav-menu">
+                        <li className="nav-item">
+                            <CustomNavLink label="Hot" to={'/hot/' + categoryId} classNe="nav-link nav-menu-text" activeOnlyWhenExact={false} icon=""/>
+                        </li>
+                        <li className="nav-item">
+                            <CustomNavLink label="New" to={'/new/' + categoryId} classNe="nav-link nav-menu-text" activeOnlyWhenExact={false} icon=""/>
+                        </li>
+                        <li className="nav-item">
+                            <CustomNavLink label="Follow" to="/c" classNe="nav-link nav-menu-text" activeOnlyWhenExact={false} icon=""/>
+                        </li>
+                    </ul>
                 </div>
                 {data.length > 0 && <InfiniteScroll
                     key={this.props.match.params.id}
@@ -133,7 +152,7 @@ class CategoryDetailContainer extends React.Component {
                             data.map((elm, index) => {
                                 return <CategoryDetailComponent
                                         key={index}
-                                        categoryId={this.props.categoryDetails.typeCategory}
+                                        categoryId={categoryId}
                                         id={elm.id}
                                         image={elm.image}
                                         url={elm.url}

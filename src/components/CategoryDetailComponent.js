@@ -34,15 +34,16 @@ class CategoryDetailComponent extends React.Component {
         return (
             <div className="padding-5 col-lg-2 col-md-6 col-sm-6 mb-4">
                 <Link className="cursor" to={path}>
-                    <div className="stats-small stats-small--1 card-no-border-r pos-relative">
-                        <video className="r-img-fill-100 m-auto" style={{width: '100%', height: '150px', objectFit: 'cover'}} ref="video" playsInline
+                    <div className="stats-small--1 card-no-border-r pos-relative">
+                        <video className="r-img-fill-100 m-auto" style={{width: '100%', height: '117px', objectFit: 'cover'}} ref="video" playsInline
                             poster={this.props.image} muted key={this.props.id} onMouseOver={this.playPreview} onMouseOut={this.resetPreview}>
-                            <source src={this.props.url}></source>
+                            {/* <source src={this.props.url}></source> */}
                         </video>
                         <div className="r-text-duration"><span>{this.props.duration}</span></div>
                     </div>
+                    <span className="r-media-title">{this.props.title}</span>
                 </Link>
-                <span className="r-media-title">{this.props.title}</span>
+                
                 
                 <div className="row margin-top-bot-2">
                     <div className="col-lg-6">
@@ -56,7 +57,7 @@ class CategoryDetailComponent extends React.Component {
                     <div className="col-lg-4">
                         <CommmentComponent key={'comment' + this.props.id} id={this.props.id} commented={this.props.interactions.commented}/>
                     </div>
-                    <div className="col-lg-8 text-right">
+                    <div className="col-lg-8">
                         <LikeDislikeComponent key={'like' + this.props.id} mediaId={this.props.id} interactions={this.props.interactions} userInteraction={this.props.userInteraction}/>
                     </div>
                 </div>

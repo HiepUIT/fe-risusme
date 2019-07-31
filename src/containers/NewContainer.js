@@ -12,12 +12,14 @@ import slider1 from './../images/slider/001.jpg';
 import slider2 from './../images/slider/002.jpg';
 import slider3 from './../images/slider/003.jpg';
 import CategoryDetailContentLoaderComponent from './../components/CategoryDetailContentLoaderComponent';
+import CustomNavLink from './../components/CustomNavLink';
 
 const override = css`
     display: block;
     margin: 0 auto;
     border-color: red;
 `;
+
 let pageNum = 1;
 class NewContainer extends React.Component {
     constructor(props) {
@@ -32,11 +34,24 @@ class NewContainer extends React.Component {
     componentDidMount() {
         this.props.resetCategoryDetail();
         window.scrollTo(0, 0);
-        this.props.getCategoryDetailNew(config.CATEGORYID_NEW, 1);
+        let id = config.CATEGORYID_NEW;
+        if(this.props.match.params.id !== undefined)
+            id = this.props.match.params.id;
+        this.props.getCategoryDetailNew(id, 1);
     }
 
-    loadFunc = (page) => {
-        this.props.getCategoryDetailNew(config.CATEGORYID_NEW, ++pageNum);
+    loadFunc = () => {
+        let id = config.CATEGORYID_NEW;
+        if(this.props.match.params.id !== undefined)
+            id = this.props.match.params.id;
+        this.props.getCategoryDetailNew(id, ++pageNum);
+    }
+
+    handleSelect = (selectedIndex, e) => {
+        this.setState({
+            index: selectedIndex,
+            direction: e.direction,
+        });
     }
 
     loadBanner = (index, direction) => {
@@ -97,9 +112,25 @@ class NewContainer extends React.Component {
 
         return (
             <div className="main-content-container container-fluid px-4">
-                <div className="row mb-4 banner-slider-ads">
+                <div className="row banner-slider-ads">
                     {this.loadBanner(index, direction)}
                 </div>
+                {
+                    this.props.match.params.id !== '0' &&
+                        <div className="row">
+                            <ul className="nav nav-tabs nav-justified nav-menu">
+                                <li className="nav-item">
+                                    <CustomNavLink label="Hot" to={'/hot/' + this.props.match.params.id} classNe="nav-link nav-menu-text" activeOnlyWhenExact={false} icon=""/>
+                                </li>
+                                <li className="nav-item">
+                                    <CustomNavLink label="New" to={'/new/' + this.props.match.params.id} classNe="nav-link nav-menu-text" activeOnlyWhenExact={false} icon=""/>
+                                </li>
+                                <li className="nav-item">
+                                    <CustomNavLink label="Follow" to="/c" classNe="nav-link nav-menu-text" activeOnlyWhenExact={false} icon=""/>
+                                </li>
+                            </ul>
+                        </div>
+                }
                 {data.length > 0 && <InfiniteScroll
                     key={data.length}
                     pageStart={1}

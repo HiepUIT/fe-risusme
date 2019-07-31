@@ -4,7 +4,7 @@ export const HOME_PAGE = 'https://localhost:3000';
 export const CATEGORYID_HOT = 0;
 export const CATEGORYID_NEW = 0;
 export const CATEGORYID_FAVORITED = 0;
-export const CATEGORYID_FUNNY = 10;
+export const CATEGORYID_FOLLOW = 0;
 
 
 export const API_CATEGORY_DETAIL = "https://tho-test2.azurewebsites.net/api/media/{CATEGORYID}/{PAGE}";
@@ -23,6 +23,7 @@ export const API_COMMENT_MEDIA = "https://tho-test2.azurewebsites.net/api/Commen
 export const API_LIST_COMMENT = "https://tho-test2.azurewebsites.net/api/Comment/{MEDIAID}/{PAGE}";
 export const API_LIKE_COMMENT = "https://tho-test2.azurewebsites.net/api/Comment/like";
 export const API_REPORT_MEDIA = "https://tho-test2.azurewebsites.net/api/media/report";
+export const API_HOME_PAGE = "http://tho-test2.azurewebsites.net/api/media/home/{VIEWDATE}/{PAGE}";
 
 export const FB_ID = "673065919800419";
 export const GOOGLE_ID = "824430253840-dh9qrain0sdg2np8h5kcoaqhooavpb4h.apps.googleusercontent.com";
@@ -46,3 +47,4 @@ export const GOOGLE_ID = "824430253840-dh9qrain0sdg2np8h5kcoaqhooavpb4h.apps.goo
 // export const API_LIST_COMMENT = "https://fmediaapi.azurewebsites.net/api/Comment/{MEDIAID}/{PAGE}";
 // export const API_LIKE_COMMENT = "https://fmediaapi.azurewebsites.net/api/Comment/like";
 // export const API_REPORT_MEDIA = "https://fmediaapi.azurewebsites.net/api/media/report";
+// export const API_HOME_PAGE = "https://fmediaapi.azurewebsites.net/api/media/home/{VIEWDATE}/{PAGE}";
