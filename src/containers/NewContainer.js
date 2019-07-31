@@ -109,14 +109,14 @@ class NewContainer extends React.Component {
         if(data === undefined || data.length === 0) {
             return <CategoryDetailContentLoaderComponent banner={this.loadBanner(index, direction)}/>
         }
-
         return (
+            
             <div className="main-content-container container-fluid px-4">
                 <div className="row banner-slider-ads">
                     {this.loadBanner(index, direction)}
                 </div>
                 {
-                    this.props.match.params.id !== '0' &&
+                    this.props.match.params.id !== undefined &&
                         <div className="row">
                             <ul className="nav nav-tabs nav-justified nav-menu">
                                 <li className="nav-item">
