@@ -2,7 +2,7 @@
   "name": "fe-resusme",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://mrhieptran.github.io/fe-risusme/",
+  "homepage": "./",
   "dependencies": {
     "@emotion/core": "^10.0.9",
     "axios": "^0.18.0",
