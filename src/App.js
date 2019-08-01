@@ -15,6 +15,12 @@ import FooterContainer from './containers/FooterContainer';
 import FollowContainer from './containers/FollowContainer';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: true
+    }
+  }
 
   render() {
     var { listCategory } = this.props;
@@ -42,7 +48,7 @@ class App extends Component {
               <Route path="/media/:categoryId/:id" component={MediaDetailContainer}/>
               <Route path="/search" component={(props) => <SearchMediaContainer dataSearch={dataSearch}/>}/>
             </Switch>
-            <FooterContainer/>
+            <FooterContainer show={this.state.show}/>
           </main>
         </React.Fragment>
       </BrowserRouter>

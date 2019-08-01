@@ -1,16 +1,51 @@
 import React from 'react';
+import fb from './../images/fb.png';
+import tw from './../images/tw.png';
 
 class FooterContainer extends React.Component {
     constructor(props) {
         super();
+        this.state = {
+            classN: 'footer',
+            currentPos: 100
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll = () => {
+        let {currentPos} = this.state;
+        let classN = 'footer';
+        console.log('curr', currentPos);
+        console.log('old', window.pageYOffset);
+        if(currentPos < window.pageYOffset) { //down
+            classN = 'footer footer__down';
+        }
+        this.setState({
+            classN,
+            currentPos: window.pageYOffset
+        });
     }
 
     render() {
         return (
-            <div className="footer">
+            <div className={this.state.classN}>
                 <ul className="footer-nav">
+                    <li className="footer-nav-item">© 2019 Risusme</li>
                     <li className="footer-nav-item">About</li>
+                    <li className="footer-nav-item">Privacy</li>
+                    <li className="footer-nav-item">
+                        <a href="https://www.facebook.com/risusme/" target="_bank" style={{color: '#bbb'}}><img style={{backgroundColor: '#bbb', borderRadius: '50%'}} src={fb}/></a>
+                    </li>
+                    <li className="footer-nav-item">
+                        <a href="https://twitter.com/risusm" target="_blank" style={{color: '#bbb'}}><img style={{backgroundColor: '#bbb', borderRadius: '50%'}} src={tw}/></a>
+                    </li>
                 </ul>
+                <div className="footer-box">
+                    <a href="https://play.google.com/store/apps/details?id=com.gofutech.risusme" target="_bank" style={{color: '#fff'}}>Get the App</a>
+                </div>
             </div>
         );
     }
