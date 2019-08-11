@@ -6,7 +6,6 @@ import Carousel from 'react-bootstrap/Carousel';
 import slider1 from './../images/slider/001.jpg';
 import slider2 from './../images/slider/002.jpg';
 import slider3 from './../images/slider/003.jpg';
-import CategoryDetailContentLoaderComponent from './../components/CategoryDetailContentLoaderComponent';
 import * as config from './../configs/configs';
 import * as constants from './../constants/constants';
 import CategoryDetailComponent from './../components/CategoryDetailComponent';
@@ -111,6 +110,7 @@ class FollowContainer extends React.Component {
         let {data} = this.props.categoryDetails;
         let {isLoadMore} = this.props.categoryDetails;
         const { index, direction } = this.state;
+        console.log('data', data);
         // if(data === undefined || data.length === 0) {
         //     return <CategoryDetailContentLoaderComponent banner={this.loadBanner(index, direction)}/>
         // }

@@ -86,9 +86,15 @@ export var getCategoryDetailFollowed = (category, page) => {
     return (dispatch) => {
         let url = config.API_CATEGORY_DETAIL_FOLLOWED.replace('{CATEGORYID}', category).replace('{PAGE}', page);
         axios.get(url, {headers: {'Authorization': token}}).then(res => {
-            dispatch({typeCategory: type.GET_CATEGORY_DETAIL_FOLLOWED, type: type.GET_CATEGORY_DETAIL_FOLLOWED, data: res.data.data.data});
+            var data = [];
+            if(res.data.data.data !== undefined)
+                data = res.data.data.data;
+            let isLoadMore = true;
+            if(res.data.data.current_page === res.data.data.last_page)
+                isLoadMore = false;
+            dispatch({typeCategory: type.GET_CATEGORY_DETAIL_FOLLOWED, type: type.GET_CATEGORY_DETAIL_FOLLOWED, isLoadMore, data});
         }).catch(err => {
-            dispatch({typeCategory: type.GET_CATEGORY_DETAIL_FOLLOWED, type: type.GET_CATEGORY_DETAIL_FOLLOWED, data: []});
+            dispatch({typeCategory: type.GET_CATEGORY_DETAIL_FOLLOWED, type: type.GET_CATEGORY_DETAIL_FOLLOWED,isLoadMore: false, data: []});
         })
     }
 }
@@ -101,7 +107,7 @@ export var getCategoryDetailNew = (category, page) => {
             let isLoadMore = true;
             if(res.data.data.current_page === res.data.data.last_page)
                 isLoadMore = false;
-            dispatch({type: type.GET_CATEGORY_DETAIL_NEW, data: {typeCategory: type.GET_CATEGORY_DETAIL_NEW, isLoadMore: isLoadMore, data: res.data.data.data}});
+            dispatch({type: type.GET_CATEGORY_DETAIL_NEW, data: {typeCategory: type.GET_CATEGORY_DETAIL_NEW, isLoadMore, data: res.data.data.data}});
         }).catch(err => {
             dispatch({type: type.GET_CATEGORY_DETAIL_HOT, data: {typeCategory: type.GET_CATEGORY_DETAIL_NEW, isLoadMore: false, data: []}});
         })
@@ -110,8 +116,6 @@ export var getCategoryDetailNew = (category, page) => {
 
 export var getCategoryDetailFavorited = (category, page) => {
     let token = getToken();
-    if(token === '') 
-        return;
 
     return (dispatch) => {
         let url = config.API_CATEGORY_DETAIL_FAVORITED.replace('{CATEGORYID}', category).replace('{PAGE}', page);
@@ -295,11 +299,18 @@ export var getListComment = (mediaId, page) => {
     let token = getToken();
     return (dispatch) => {
         axios.get(url, {headers: {'Authorization': token}}).then(res => {
+            console.log('data', res.data.data);
             dispatch({type: type.GET_LIST_COMMENT_ACTION, data: {mediaId, data: res.data.data}});
         }).catch(err => {
             console.log('err', err);
             dispatch({type: type.GET_LIST_COMMENT_ACTION, data: {}});
         })
+    }
+}
+
+export var resetListComment = () => {
+    return async (dispatch) => {
+        await dispatch({type: type.RESET_LIST_COMMENT_ACTION, data: []})
     }
 }
 

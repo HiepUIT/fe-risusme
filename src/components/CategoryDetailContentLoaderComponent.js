@@ -18,8 +18,8 @@ class ListMediaContentLoaderComponent extends React.Component {
                     height={300}
                     width={400}
                     speed={2}
-                    primaryColor="#bcbbc0"
-                    secondaryColor="#e0dee1"
+                    primaryColor="#f3f3f3"
+                    secondaryColor="#ecebeb"
                 >
                     <rect x="0" y="0" rx="3" ry="3" width="400" height="200" /> 
                     <rect x="0" y="208" rx="3" ry="3" width="400" height="25" />

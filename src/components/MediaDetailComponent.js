@@ -54,7 +54,7 @@ class MediaDetailComponent extends React.Component {
             this.props.commentAction(this.commentText.value, createdDate, '0', this.props.mediaId).then(res => {
                 cmtObj.id = this.props.commentObj.comment.id;
                 this.props.listComment.data.splice(0, 0, cmtObj);
-                this.props.updateListCmt({type: type.GET_LIST_COMMENT_ACTION, data: this.props.listComment});
+                this.props.updateListCmt({type: type.GET_LIST_COMMENT_ACTION, data: {mediaId: this.props.mediaId, data: this.props.listComment}});
             }).catch(err => {
                 console.log('err', err);
             });
@@ -113,6 +113,7 @@ class MediaDetailComponent extends React.Component {
                         <ReportComponent key={'report' + data.mediaId} mediaId={data.mediaId}/>
                     </div>
                 </div>
+                <div class="row r-media-title-large border-top">&nbsp;</div>
                 <input ref={(input) => this.commentText = input} onKeyPress={this.doComment} type="text" className="form-control form-control-lg mb-3" placeholder="Write a comment"/>
                 <p className="r-media-title-large">
                     {

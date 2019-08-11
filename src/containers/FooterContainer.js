@@ -18,8 +18,6 @@ class FooterContainer extends React.Component {
     handleScroll = () => {
         let {currentPos} = this.state;
         let classN = 'footer';
-        console.log('curr', currentPos);
-        console.log('old', window.pageYOffset);
         if(currentPos < window.pageYOffset) { //down
             classN = 'footer footer__down';
         }
@@ -34,13 +32,15 @@ class FooterContainer extends React.Component {
             <div className={this.state.classN}>
                 <ul className="footer-nav">
                     <li className="footer-nav-item">© 2019 Risusme</li>
-                    <li className="footer-nav-item">About</li>
+                    <li className="footer-nav-item">
+                        <a href="http://home.risusme.com" target="_blank">About</a>
+                    </li>
                     <li className="footer-nav-item">Privacy</li>
                     <li className="footer-nav-item">
-                        <a href="https://www.facebook.com/risusme/" target="_bank" style={{color: '#bbb'}}><img style={{backgroundColor: '#bbb', borderRadius: '50%'}} src={fb}/></a>
+                        <a href="https://www.facebook.com/risusme/" target="_bank" rel="noopener noreferrer" style={{color: '#bbb'}}><img alt="" style={{backgroundColor: '#bbb', borderRadius: '50%', width: '40%'}} src={fb}/></a>
                     </li>
-                    <li className="footer-nav-item">
-                        <a href="https://twitter.com/risusm" target="_blank" style={{color: '#bbb'}}><img style={{backgroundColor: '#bbb', borderRadius: '50%'}} src={tw}/></a>
+                    <li className="footer-nav-item" style={{marginLeft: '-24px'}}>
+                        <a href="https://twitter.com/risusm" target="_blank" rel="noopener noreferrer" style={{color: '#bbb'}}><img alt="" style={{backgroundColor: '#bbb', borderRadius: '50%', width: '40%'}} src={tw}/></a>
                     </li>
                 </ul>
                 <div className="footer-box">

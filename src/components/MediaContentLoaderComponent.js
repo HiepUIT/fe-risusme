@@ -2,9 +2,6 @@ import React from 'react';
 import ContentLoader from 'react-content-loader';
 
 class MediaContentLoaderComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return(

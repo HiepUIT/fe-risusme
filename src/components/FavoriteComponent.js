@@ -1,7 +1,8 @@
 import React from 'react';
 import star from './../images/favorite_home.png';
 import starPress from './../images/favorite_home_press.png';
-import {favoriteAction} from './../actions/actions';
+import {favoriteAction, checkAuth} from './../actions/actions';
+import PopupNotificationLogin from './PopupNotificationLogin';
 
 class FavoriteComponent extends React.Component {
     constructor(props) {
@@ -14,11 +15,16 @@ class FavoriteComponent extends React.Component {
             iconFavorite = starPress;
         this.state = {
             isFavorite,
-            iconFavorite
+            iconFavorite,
+            showModal: false
         }
     }
 
     favoriteAction = () => {
+        if(!checkAuth()) {
+            this.setState({showModal: true});
+            return;
+        }
         let isFavorite = this.state.isFavorite;
         let iconFavorite = starPress;
         if(isFavorite)
@@ -34,6 +40,7 @@ class FavoriteComponent extends React.Component {
         return (
             <div className="text-right">
                 <img alt="" onClick={this.favoriteAction} className="r-detail-img-icon" src={this.state.iconFavorite}/>
+                <PopupNotificationLogin showModal={this.state.showModal}/>
             </div>
         )
     }

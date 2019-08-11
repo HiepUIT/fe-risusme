@@ -6,9 +6,6 @@ import * as constants from './../constants/constants';
 import * as config from './../configs/configs';
 
 class ListRelativeMediaContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.resetRelativeMedia();

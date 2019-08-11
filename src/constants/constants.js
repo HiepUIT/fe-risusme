@@ -21,6 +21,7 @@ export const RESET_RELATIVE_MEDIA = 'RESET_RELATIVE_MEDIA';
 
 export const COMMENT_ACTION = 'COMMENT_ACTION';
 export const GET_LIST_COMMENT_ACTION = 'GET_LIST_COMMENT_ACTION';
+export const RESET_LIST_COMMENT_ACTION = 'RESET_LIST_COMMENT_ACTION';
 
 export const FACEBOOK = 'facebook';
 export const GOOGLE = 'google';

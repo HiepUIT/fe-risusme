@@ -27,8 +27,7 @@ var myReducer = (state = categoryDetailState, action) => {
             return Object.assign({}, state, {typeCategory: type.GET_CATEGORY_DETAIL_FAVORITED, isLoadMore: action.data.isLoadMore, data: arr});
         }
         case type.GET_CATEGORY_DETAIL_FOLLOWED: {
-            state = action.data;
-            return state;
+            return Object.assign({}, state, {typeCategory: type.GET_CATEGORY_DETAIL_FOLLOWED, isLoadMore: action.data.isLoadMore, data: action.data});
         }
         case type.GET_CATEGORY_DETAIL_HOT: {
             let arr = [];

@@ -4,7 +4,6 @@ import MenuContainer from './containers/MenuContainer';
 import HeaderContainer from './containers/HeaderContainer';
 import HotContainer from './containers/HotContainer';
 import NewContainer from './containers/NewContainer';
-import FavoritedContainer from './containers/FavoritedContainer';
 import CategoryDetailContainer from './containers/CategoryDetailContainer';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import MediaDetailContainer from './containers/MediaDetailContainer';
@@ -13,14 +12,9 @@ import { connect } from 'react-redux';
 import SearchMediaContainer from './containers/SearchMediaContainer';
 import FooterContainer from './containers/FooterContainer';
 import FollowContainer from './containers/FollowContainer';
+import FavoritedContainer from './containers/FavoritedContainer';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: true
-    }
-  }
 
   render() {
     var { listCategory } = this.props;
@@ -37,6 +31,7 @@ class App extends Component {
               <Route path="/hot/:id" component={HotContainer}/>
               <Route path="/follow/:id" component={FollowContainer}/>
               {/* <Route path="/new/:id" component={NewContainer}/> */}
+              <Route path="/favorite/:id" component={FavoritedContainer}/>
               {
                 listCategory.map((elm, index) => {
                   let path = '/category/:id';
@@ -48,8 +43,8 @@ class App extends Component {
               <Route path="/media/:categoryId/:id" component={MediaDetailContainer}/>
               <Route path="/search" component={(props) => <SearchMediaContainer dataSearch={dataSearch}/>}/>
             </Switch>
-            <FooterContainer show={this.state.show}/>
           </main>
+          <FooterContainer/>
         </React.Fragment>
       </BrowserRouter>
     );

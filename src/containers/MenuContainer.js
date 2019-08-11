@@ -6,6 +6,7 @@ import logo from './../images/logo.jpg';
 import hot from './../images/hot.jpg';
 import follow from './../images/follow.png';
 import home from './../images/home.png'
+import favorite from './../images/favorite_home.png'
 
 class MenuContainer extends React.Component {
     render() {
@@ -49,9 +50,15 @@ class MenuContainer extends React.Component {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="menu-link-item nav-link" to="/follow/0">
+                            <Link className="no-border menu-link-item nav-link" to="/follow/0">
                                 <img alt="" className="img-icon" src={follow}/>
                                 <span className="menu-text">Following</span>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="menu-link-item nav-link" to="/favorite/0">
+                                <img alt="" className="img-icon" src={favorite}/>
+                                <span className="menu-text">Favorite</span>
                             </Link>
                         </li>
                     </ul>

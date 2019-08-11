@@ -46,10 +46,10 @@ class CategoryDetailComponent extends React.Component {
                 
                 
                 <div className="row margin-top-bot-2">
-                    <div className="col-lg-6">
+                    <div className="col-lg-10">
                     {this.props.author.name}
                     </div>
-                    <div className="col-lg-6 text-right">
+                    <div className="col-lg-2 text-right">
                         <FavoriteComponent key={'favorite' + this.props.id} mediaId={this.props.id} userInteraction={this.props.userInteraction}/>
                     </div>
                 </div>
